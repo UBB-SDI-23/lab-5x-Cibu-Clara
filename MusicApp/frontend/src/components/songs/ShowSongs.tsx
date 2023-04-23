@@ -12,7 +12,7 @@ import {
     Tooltip,
     Button, TextField
 } from "@mui/material";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {Song} from "../../models/Song";
 import {BACKEND_API_URL} from "../../constants";
@@ -61,7 +61,7 @@ export const ShowSongs = () => {
             <TextField
                 label="Year of Release"
                 onChange={(event) => {
-						setInput(input => parseInt(event.target.value))}}
+						setInput( parseInt(event.target.value))}}
                 InputProps={{ style: { color: "black" } }}
                 InputLabelProps={{style: {color: 'darkgrey'}}}
                 style={{ marginRight: "16px", color:'whitesmoke' }}

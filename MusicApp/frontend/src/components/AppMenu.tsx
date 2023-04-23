@@ -2,7 +2,6 @@ import { Box, AppBar, Toolbar, IconButton, Typography, Button } from "@mui/mater
 import { Link, useLocation } from "react-router-dom";
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
-import BarChartIcon from '@mui/icons-material/BarChart';
 
 export const AppMenu = () => {
 	const location = useLocation();

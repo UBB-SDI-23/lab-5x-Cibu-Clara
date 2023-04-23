@@ -10,7 +10,6 @@ import axios from "axios";
 export const EditSong = () => {
     const {songId} = useParams();
     const navigate = useNavigate();
-
     const [song, setSong] = useState<Song>({
         id: (parseInt(songId)),
         song_name: "",
