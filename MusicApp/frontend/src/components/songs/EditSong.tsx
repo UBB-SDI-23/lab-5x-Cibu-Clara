@@ -10,8 +10,9 @@ import axios from "axios";
 export const EditSong = () => {
     const {songId} = useParams();
     const navigate = useNavigate();
+    const id = songId ? parseInt(songId) : 0;
     const [song, setSong] = useState<Song>({
-        id: (parseInt(songId)),
+        id,
         song_name: "",
 		composer: "",
         genre:"",
