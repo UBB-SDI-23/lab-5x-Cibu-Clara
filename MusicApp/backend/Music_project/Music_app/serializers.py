@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import *
 
+
 class DynamicFieldsModelSerializer(serializers.ModelSerializer):
     """
     A ModelSerializer that takes an additional `fields` argument that

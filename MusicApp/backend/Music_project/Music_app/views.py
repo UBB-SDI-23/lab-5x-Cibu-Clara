@@ -1,7 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import *
 from .serializers import *
 from django.db.models import Avg, Count
 from drf_spectacular.utils import extend_schema
