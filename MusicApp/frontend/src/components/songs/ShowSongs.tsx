@@ -56,32 +56,6 @@ export const ShowSongs = () => {
         }
     }
 
-    const handleNextPage = () => {
-		if (currentPage < totalPages) {
-			setCurrentPage(currentPage + 1);
-			setLoading(true);
-			fetch(`${BACKEND_API_URL}/songs/?p=${currentPage + 1}`)
-				.then((response) => response.json())
-				.then((data) => {
-					setSongs(data.results);
-					setLoading(false);
-				});
-		}
-	};
-
-	const handlePrevPage = () => {
-		if (currentPage > 1) {
-			setCurrentPage(currentPage - 1);
-			setLoading(true);
-			fetch(`${BACKEND_API_URL}/songs/?p=${currentPage - 1}`)
-				.then((response) => response.json())
-				.then((data) => {
-					setSongs(data.results);
-					setLoading(false);
-				});
-		}
-	};
-
 	const handlePageChange = (newPage: number) => {
 		setCurrentPage(newPage);
 
@@ -102,12 +76,6 @@ export const ShowSongs = () => {
 	) {
 		pageNumbers.push(i);
 	}
-
-    const [open, setOpen] = React.useState(false);
-	const numbers = Array.from({ length: 100 }, (_, index) => index + 1);
-	const handleOpen = () => {
-		setOpen(!open);
-	};
 
         return (
 		<Container>
