@@ -27,7 +27,7 @@ export const ShowSongs = () => {
     const [order, setOrder] = useState("asc");
     let [input, setInput] = useState<number | undefined>();
     const [currentPage, setCurrentPage] = useState(1);
-	const totalPages = 2; //Math.ceil(1000000 / 100);
+	const totalPages = 10000; //Math.ceil(1000000 / 100);
 
     useEffect(() => {
         setLoading(true);
@@ -57,7 +57,6 @@ export const ShowSongs = () => {
 
 	const handlePageChange = (newPage: number) => {
 		setCurrentPage(newPage);
-
 		setLoading(true);
 		fetch(`${BACKEND_API_URL}/songs/?p=${newPage}`)
 			.then((response) => response.json())
