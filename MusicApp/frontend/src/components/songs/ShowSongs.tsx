@@ -10,7 +10,7 @@ import {
     Container,
     IconButton,
     Tooltip,
-    Button, TextField
+    Button, TextField, Toolbar
 } from "@mui/material";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
@@ -20,17 +20,19 @@ import AddIcon from "@mui/icons-material/Add";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-
+import React from "react";
 
 export const ShowSongs = () => {
     const [loading, setLoading] = useState(false);
     const [songs, setSongs] = useState<Song[]>([]);
     const [order, setOrder] = useState("asc");
     let [input, setInput] = useState<number | undefined>();
+    const [currentPage, setCurrentPage] = useState(1);
+	const totalPages = 2; //Math.ceil(1000000 / 100);
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/songs/`)
+        fetch(`${BACKEND_API_URL}/songs/?p=${currentPage}`)
             .then((response) => response.json())
             .then((data) => {
                 setSongs(data);
@@ -54,9 +56,63 @@ export const ShowSongs = () => {
         }
     }
 
+    const handleNextPage = () => {
+		if (currentPage < totalPages) {
+			setCurrentPage(currentPage + 1);
+			setLoading(true);
+			fetch(`${BACKEND_API_URL}/songs/?p=${currentPage + 1}`)
+				.then((response) => response.json())
+				.then((data) => {
+					setSongs(data.results);
+					setLoading(false);
+				});
+		}
+	};
+
+	const handlePrevPage = () => {
+		if (currentPage > 1) {
+			setCurrentPage(currentPage - 1);
+			setLoading(true);
+			fetch(`${BACKEND_API_URL}/songs/?p=${currentPage - 1}`)
+				.then((response) => response.json())
+				.then((data) => {
+					setSongs(data.results);
+					setLoading(false);
+				});
+		}
+	};
+
+	const handlePageChange = (newPage: number) => {
+		setCurrentPage(newPage);
+
+		setLoading(true);
+		fetch(`${BACKEND_API_URL}/songs/?p=${newPage}`)
+			.then((response) => response.json())
+			.then((data) => {
+				setSongs(data.results);
+				setLoading(false);
+			});
+	};
+
+	const pageNumbers = [];
+	for (
+		let i = Math.max(1, currentPage - 5);
+		i <= Math.min(totalPages, currentPage + 5);
+		i++
+	) {
+		pageNumbers.push(i);
+	}
+
+    const [open, setOpen] = React.useState(false);
+	const numbers = Array.from({ length: 100 }, (_, index) => index + 1);
+	const handleOpen = () => {
+		setOpen(!open);
+	};
+
         return (
 		<Container>
 			<h1>All Songs </h1>
+			<label style={{ color: "gray" }}>Current Page: {currentPage}</label>
             <div style={{ display: "flex", alignItems: "center", marginLeft: "900px", marginBottom: "-30px" }}>
             <TextField
                 label="Year of Release"
@@ -72,6 +128,58 @@ export const ShowSongs = () => {
             </div>
 			{loading && <CircularProgress />}
 			{!loading && songs.length === 0 && <p>No songs found</p>}
+            			{!loading && (
+				<Toolbar>
+					<div style={{ width: "1200px" }}>
+						{currentPage > 1 && (
+							<button style={{ margin: "3px" }} onClick={() => handlePageChange(currentPage - 1)}>
+								Previous
+							</button>
+						)}
+						{pageNumbers[0] > 1 && (
+							<>
+								<button style={{ margin: "3px" }} onClick={() => handlePageChange(1)}>1</button>
+								{pageNumbers[0] > 2 && <span style={{ margin: "3px" }} >...</span>}
+							</>
+						)}
+						{pageNumbers.map((pageNumber) => (
+							<button
+								style={{
+									margin: "3px",
+									// backgroundColor: currentPage === pageNumber ? "white" : "",
+									backgroundColor: "white",
+									color: currentPage === pageNumber ? "blue" : "black",
+									pointerEvents: currentPage === pageNumber ? "none" : "auto"
+								}}
+								key={pageNumber}
+								onClick={() => handlePageChange(pageNumber)}
+							>
+								{pageNumber}
+							</button>
+						))}
+						{pageNumbers[pageNumbers.length - 1] <= totalPages - 1 && (
+							<>
+								{pageNumbers[pageNumbers.length - 1] <= totalPages - 2 && (
+									<span style={{ margin: "3px" }}>...</span>
+								)}
+								<button style={{ margin: "3px" }} onClick={() => handlePageChange(totalPages)}>
+									{totalPages}
+								</button>
+							</>
+						)}
+						{currentPage < totalPages && (
+							<button style={{ margin: "3px" }} onClick={() => handlePageChange(currentPage + 1)}>
+								Next
+							</button>
+						)}
+					</div>
+					<IconButton component={Link} sx={{ mr: 3 }} to={`/employees/add`}>
+						<Tooltip title="Add a new employee" arrow>
+							<AddIcon color="primary" />
+						</Tooltip>
+					</IconButton>
+				</Toolbar>
+			)}
 			{!loading && (
 				<IconButton component={Link} sx={{ mr:155 }} to={`/songs/add`}>
 					<Tooltip title="Add a new song" arrow>
