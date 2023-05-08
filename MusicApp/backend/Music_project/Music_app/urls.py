@@ -1,7 +1,9 @@
 from django.urls import path
 from .views import *
+from .Views.SongViews import SongListCreateView
+
 urlpatterns = [
-    path("songs/", SongList.as_view(), name="songs"),
+    path("songs/", SongListCreateView.as_view(), name="songs"),
     path("songs/<int:id>/", SongInfo.as_view()),
     path("songs/filter-by-year/<int:year>/", SongFilterView.as_view()),
     path("songs/order-by-performances/", SongsNumberStatistics.as_view()),
