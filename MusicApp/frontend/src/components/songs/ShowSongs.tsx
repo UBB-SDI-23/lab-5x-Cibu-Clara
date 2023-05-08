@@ -28,9 +28,8 @@ export const ShowSongs = () => {
     const [order, setOrder] = useState("asc");
     let [input, setInput] = useState<number | undefined>();
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize] = useState(10);
     const [totalRows, setTotalRows] = useState(0);
-    const crt = (page - 1) * pageSize + 1;
 
     const [isLastPage, setIsLastPage] = useState(false);
 
@@ -68,7 +67,7 @@ export const ShowSongs = () => {
         const response = await fetch(
           `${BACKEND_API_URL}/songs/?page=${page}&page_size=${pageSize}`
         );
-        const { count, next, previous, results } = await response.json();
+        const { count, next, results } = await response.json();
         setSongs(results);
         setTotalRows(count);
         setIsLastPage(!next);

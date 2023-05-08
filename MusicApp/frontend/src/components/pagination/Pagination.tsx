@@ -18,11 +18,7 @@ export const Paginator = ({
   rowsPerPage,
   totalRows,
   currentPage,
-  isFirstPage,
-  isLastPage,
   setPage,
-  goToNextPage,
-  goToPrevPage,
 }: PaginatorProps) => {
   const totalPages = Math.ceil(totalRows / rowsPerPage);
   const pageRange = 11;
