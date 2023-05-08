@@ -65,7 +65,7 @@ export const Paginator = ({
       }
 
       if (start - 5 > 1 && start - 5 >= 1) {
-        pageNumbers.unshift("...");
+        pageNumbers.unshift(Number("..."));
       }
       for (let i = Math.min(start-1, 5); i >= 1; --i) {
         pageNumbers.unshift(i);
@@ -73,7 +73,7 @@ export const Paginator = ({
 
 
       if (end < totalPages-4) {
-        pageNumbers.push("...");
+        pageNumbers.push(Number("..."));
         // pageNumbers.push(totalPages-4);
         // pageNumbers.push(totalPages-3);
         // pageNumbers.push(totalPages-2);

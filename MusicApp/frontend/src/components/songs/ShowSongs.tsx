@@ -30,7 +30,6 @@ export const ShowSongs = () => {
     const [page, setPage] = useState(1);
     const [pageSize] = useState(10);
     const [totalRows, setTotalRows] = useState(0);
-
     const [isLastPage, setIsLastPage] = useState(false);
 
     const setCurrentPage = (newPage: number) => {
