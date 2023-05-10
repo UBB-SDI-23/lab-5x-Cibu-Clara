@@ -1,6 +1,6 @@
 import {Button, Card, CardContent, IconButton, TextField} from "@mui/material";
 import {Container} from "@mui/system";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {BACKEND_API_URL} from "../../constants";
 import {Song} from "../../models/Song";
@@ -18,6 +18,21 @@ export const EditSong = () => {
         genre:"",
         year_of_release:0,
     });
+
+    useEffect(() => {
+		const fetchSong= async () => {
+			const response = await fetch(`${BACKEND_API_URL}/songs/${songId}/`);
+			const song = await response.json();
+			setSong({
+				song_name: song.song_name,
+                composer: song.composer,
+                genre: song.genre,
+                year_of_release: song.year_of_release
+		})
+            console.log(song);
+		};
+		fetchSong();
+	}, [songId]);
 
     const editSong = async (event: { preventDefault: () => void }) => {
             event.preventDefault();

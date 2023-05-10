@@ -1,11 +1,14 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import generics
+from .pagination import CustomPagination
 from .serializers import *
 from django.db.models import Avg, Count
 from drf_spectacular.utils import extend_schema
 
 
+'''
 class SongList(APIView):
     @extend_schema(responses=SongSerializer)
     def get(self, request):
@@ -20,9 +23,23 @@ class SongList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+'''
+
+
+class SongListCreateView(generics.ListCreateAPIView):
+    serializer_class = SongSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        queryset = Song.objects.all().order_by('id')
+        print(queryset.explain())
+        return queryset
 
 
 class SongInfo(APIView):
+    serializer_class = SongSerializer
+    pagination_class = CustomPagination
+
     @extend_schema(responses=SongSerializer)
     def get(self, request, id):
         try:
@@ -251,12 +268,28 @@ class AlbumInfo(APIView):
         return Response({"msg": "deleted"}, status=status.HTTP_204_NO_CONTENT)
 
 
+'''
 class SongFilterView(APIView):
     @extend_schema(responses=SongSerializer)
     def get(self, request, year):
         songs = Song.objects.filter(year_of_release__gte=year)
         serializer = SongSerializer(songs, many=True, exclude_fields=['artists'])
         return Response(serializer.data, status=status.HTTP_200_OK)
+'''
+
+
+class SongFilterView(generics.ListCreateAPIView):
+    serializer_class = SongSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        min_year = self.kwargs.get("year")
+        queryset = Song.objects.all()
+        if min_year is not None:
+            queryset = queryset.filter(year_of_release__gte=min_year)
+        print(queryset.explain())
+        print(min_year)
+        return queryset
 
 
 class PerformsOnList(APIView):
