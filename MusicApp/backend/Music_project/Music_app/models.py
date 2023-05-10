@@ -13,6 +13,9 @@ class Song(models.Model):
     year_of_release = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(year)])
     artists = models.ManyToManyField('Artist', through='PerformsOn')
 
+    class Meta:
+        ordering = ['id']
+
     def __str__(self):
         return self.song_name
 

@@ -9,7 +9,7 @@ class SongListCreateView(generics.ListCreateAPIView):
     pagination_class = CustomPagination
 
     def get_queryset(self):
-        queryset = Song.objects.order_by('id')
+        queryset = Song.objects.all()
         print(queryset.explain())
         return queryset
 
