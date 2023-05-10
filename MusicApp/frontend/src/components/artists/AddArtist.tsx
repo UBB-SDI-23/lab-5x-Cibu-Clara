@@ -20,7 +20,7 @@ export const AddArtist = () => {
 		artist_name: "",
 		real_name: "",
         country:"",
-        email:"",
+        email:""
 	});
 
 	const addArtist = async (event: { preventDefault: () => void }) => {

@@ -33,6 +33,10 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 class ArtistSerializer(DynamicFieldsModelSerializer):
     """
     """
+    artist_name = serializers.CharField(max_length=100)
+    real_name = serializers.CharField(max_length=100)
+    country = serializers.CharField(max_length=100)
+    email = serializers.EmailField(max_length=100)
     songs = Song()
 
     class Meta:
