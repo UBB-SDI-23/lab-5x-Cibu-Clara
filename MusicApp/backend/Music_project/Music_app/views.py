@@ -97,24 +97,6 @@ class SongInfo(APIView):
         return Response({"msg": "deleted"}, status=status.HTTP_204_NO_CONTENT)
 
 
-'''
-class ArtistList(APIView):
-    @extend_schema(responses=ArtistSerializer)
-    def get(self, request):
-        artists = Artist.objects.all()
-        serializer = ArtistSerializer(artists, many=True, exclude_fields=['songs', 'albums'])
-        return Response(serializer.data)
-
-    @extend_schema(responses=ArtistSerializer)
-    def post(self, request):
-        serializer = ArtistSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-'''
-
-
 class ArtistListCreateView(generics.ListCreateAPIView):
     serializer_class = ArtistSerializer
     pagination_class = CustomPagination
