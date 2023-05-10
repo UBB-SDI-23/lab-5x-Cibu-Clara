@@ -61,6 +61,7 @@ export const ShowSongs = () => {
                 setLoading(false);
             });
         }, [])*/
+
     const fetchSongs = async () => {
         setLoading(true);
         const response = await fetch(
@@ -82,9 +83,9 @@ export const ShowSongs = () => {
             const sorted = [...songs].sort((s1, s2) =>
                     s1.song_name.toLowerCase() > s2.song_name.toLowerCase() ? 1 : -1);
             setSongs(sorted);
-            setOrder("des");
+            setOrder("desc");
         }
-        if (order === "des") {
+        if (order === "desc") {
             const sorted = [...songs].sort((s1, s2) =>
                 s1.song_name.toLowerCase() < s2.song_name.toLowerCase() ? 1 : -1
             );
