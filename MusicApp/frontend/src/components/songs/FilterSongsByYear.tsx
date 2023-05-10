@@ -88,7 +88,7 @@ export const FilterSongsByYear = () => {
 
 	return (
 		<Container>
-			<h1>Songs released until {year}</h1>
+			<h1>Songs released from {year} on</h1>
             {loading && <CircularProgress />}
 			{!loading && songs.length === 0 && <p>No songs found</p>}
 			{!loading && songs.length > 0 && (
