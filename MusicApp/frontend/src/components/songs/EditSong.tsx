@@ -22,7 +22,7 @@ export const EditSong = () => {
      useEffect(() => {
 		const fetchSong = async () => {
 			const response = await fetch(`${BACKEND_API_URL}/songs/${songId}/`);
-			const team = await response.json();
+			const song = await response.json();
 			setSong({
 				song_name: song.song_name,
                 composer: song.composer,
