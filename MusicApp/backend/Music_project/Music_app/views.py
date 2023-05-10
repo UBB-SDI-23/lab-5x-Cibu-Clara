@@ -8,16 +8,6 @@ from django.db.models import Avg, Count
 from drf_spectacular.utils import extend_schema
 
 
-class ArtistListCreateView(generics.ListCreateAPIView):
-    serializer_class = ArtistSerializer
-    pagination_class = CustomPagination
-
-    def get_queryset(self):
-        queryset = Artist.objects.all().order_by('id')
-        print(queryset.explain())
-        return queryset
-
-
 '''
 class SongList(APIView):
     @extend_schema(responses=SongSerializer)
@@ -123,6 +113,16 @@ class ArtistList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 '''
+
+
+class ArtistListCreateView(generics.ListAPIView):
+    serializer_class = ArtistSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        queryset = Artist.objects.all().order_by('id')
+        print(queryset.explain())
+        return queryset
 
 
 class ArtistInfo(APIView):
