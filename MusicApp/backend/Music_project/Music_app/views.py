@@ -126,6 +126,8 @@ class ArtistListCreateView(generics.ListCreateAPIView):
 
 
 class ArtistInfo(APIView):
+    serializer_class = ArtistSerializer
+    pagination_class = CustomPagination
     @extend_schema(responses=ArtistSerializer)
     def get(self, request, id):
         try:
