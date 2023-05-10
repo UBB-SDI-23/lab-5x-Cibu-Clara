@@ -27,6 +27,9 @@ class Artist(models.Model):
     email = models.EmailField(max_length=100)
     songs = models.ManyToManyField('Song', through='PerformsOn')
 
+    class Meta:
+        ordering = ['id']
+
     def __str__(self):
         return self.artist_name
 

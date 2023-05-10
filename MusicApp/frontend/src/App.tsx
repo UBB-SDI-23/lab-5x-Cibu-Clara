@@ -9,6 +9,11 @@ import { DeleteSong } from "./components/songs/DeleteSong";
 import { AddSong } from "./components/songs/AddSong";
 import {EditSong} from "./components/songs/EditSong";
 import {FilterSongsByYear} from "./components/songs/FilterSongsByYear";
+import {ShowArtists} from "./components/artists/ShowArtist";
+import {ArtistDetails} from "./components/artists/ArtistDetails";
+import {EditArtist} from "./components/artists/EditArtist";
+import {DeleteArtist} from "./components/artists/DeleteArtist";
+import {AddArtist} from "./components/artists/AddArtist";
 
 function App() {
 	return (
@@ -23,6 +28,13 @@ function App() {
 					<Route path="/songs/:songId/delete" element={<DeleteSong />} />
 					<Route path="/songs/add" element={<AddSong />} />
 					<Route path="/songs/filter-by-year/:year" element={<FilterSongsByYear />} />
+
+					<Route path="/" element={<AppHome />} />
+					<Route path="/artists" element={<ShowArtists />} />
+					<Route path="/artists/:artistId/details" element={<ArtistDetails />} />
+					<Route path="/artists/:artistId/edit" element={<EditArtist />} />
+					<Route path="/artists/:artistId/delete" element={<DeleteArtist />} />
+					<Route path="/artists/add" element={<AddArtist />} />
 				</Routes>
 			</Router>
 		</React.Fragment>

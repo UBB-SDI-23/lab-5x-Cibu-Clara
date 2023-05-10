@@ -38,7 +38,7 @@ class ArtistSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = Artist
         fields = ('id', 'artist_name', 'real_name', 'country', 'email', 'songs', 'albums')
-
+        ordering = ['id']
 
 class SongSerializer(DynamicFieldsModelSerializer):
     """

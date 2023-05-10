@@ -2,6 +2,7 @@ import { Box, AppBar, Toolbar, IconButton, Typography, Button } from "@mui/mater
 import { Link, useLocation } from "react-router-dom";
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
+import GroupIcon from '@mui/icons-material/Group';
 
 export const AppMenu = () => {
 	const location = useLocation();
@@ -32,6 +33,15 @@ export const AppMenu = () => {
 						sx={{ mr: 5 }}
 						startIcon={<QueueMusicIcon />}>
 						Songs
+					</Button>
+					<Button
+						variant={path.startsWith("/artists") ? "outlined" : "text"}
+						to="/artists"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<GroupIcon />}>
+						Artists
 					</Button>
 				</Toolbar>
 			</AppBar>
