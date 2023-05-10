@@ -83,7 +83,7 @@ export const EditArtist = () => {
 							variant="outlined"
 							fullWidth
 							sx={{ mb: 2 }}
-							onChange={(event) => setArtist({ ...setArtist(), email: event.target.value })}
+							onChange={(event) => setArtist({ ...artist, email: event.target.value })}
 						/>
                         <Button type="submit">Update Artist</Button>
                     </form>
