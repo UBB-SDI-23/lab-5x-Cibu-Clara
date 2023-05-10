@@ -45,8 +45,8 @@ class Album(models.Model):
 
 
 class PerformsOn(models.Model):
-    song = models.ForeignKey(Song, on_delete=models.CASCADE())
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE())
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     nr_of_views = models.IntegerField()
     duration = models.CharField(max_length=10, validators=[RegexValidator("..:..")])
 
