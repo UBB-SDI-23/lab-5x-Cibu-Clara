@@ -53,6 +53,7 @@ class SongSerializer(DynamicFieldsModelSerializer):
         model = Song
         fields = (
             'id', 'song_name', 'composer', 'genre', 'year_of_release', 'artists')
+        ordering = ['id']
 
 
 class AlbumSerializer(DynamicFieldsModelSerializer):
