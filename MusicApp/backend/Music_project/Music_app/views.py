@@ -115,7 +115,7 @@ class ArtistList(APIView):
 '''
 
 
-class ArtistListCreateView(generics.ListAPIView):
+class ArtistListCreateView(generics.ListCreateAPIView):
     serializer_class = ArtistSerializer
     pagination_class = CustomPagination
 
