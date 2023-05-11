@@ -4,6 +4,8 @@ import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 import GroupIcon from '@mui/icons-material/Group';
 import AlbumIcon from '@mui/icons-material/Album';
+import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
+import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 
 export const AppMenu = () => {
 	const location = useLocation();
@@ -59,8 +61,17 @@ export const AppMenu = () => {
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}
-						startIcon={<AlbumIcon />}>
+						startIcon={<LibraryMusicIcon />}>
 						Performances
+					</Button>
+					<Button
+						variant={path.startsWith("/albums") ? "outlined" : "text"}
+						to="/albums"
+						component={Link}
+						color="inherit"
+						 sx={{ ml: "auto" }}
+						startIcon={<SignalCellularAltIcon />}>
+						Statistics
 					</Button>
 				</Toolbar>
 			</AppBar>
