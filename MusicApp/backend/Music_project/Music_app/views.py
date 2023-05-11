@@ -27,7 +27,7 @@ class SongList(APIView):
 
 
 class SongListCreateView(generics.ListCreateAPIView):
-    serializer_class = SongSerializer(exclude_fields='albums')
+    serializer_class = SongSerializer
     pagination_class = CustomPagination
 
     def get_queryset(self):
