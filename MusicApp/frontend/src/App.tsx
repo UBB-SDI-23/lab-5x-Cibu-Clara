@@ -16,6 +16,9 @@ import {DeleteArtist} from "./components/artists/DeleteArtist";
 import {AddArtist} from "./components/artists/AddArtist";
 import {ShowAlbums} from "./components/albums/ShowAlbums";
 import {AddAlbum} from "./components/albums/AddAlbum";
+import {EditAlbum} from "./components/albums/EditAlbum";
+import {AlbumDetails} from "./components/albums/AlbumDetails";
+import {DeleteAlbum} from "./components/albums/DeleteAlbum";
 
 function App() {
 	return (

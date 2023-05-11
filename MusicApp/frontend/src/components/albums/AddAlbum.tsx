@@ -10,7 +10,6 @@ import { Container } from "@mui/system";
 import {useCallback, useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_API_URL } from "../../constants";
-import { Album } from "../../models/Album";
 import { Artist } from "../../models/Artist";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {debounce} from 'lodash';
