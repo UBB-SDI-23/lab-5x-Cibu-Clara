@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 import GroupIcon from '@mui/icons-material/Group';
+import AlbumIcon from '@mui/icons-material/Album';
 
 export const AppMenu = () => {
 	const location = useLocation();
@@ -42,6 +43,24 @@ export const AppMenu = () => {
 						sx={{ mr: 5 }}
 						startIcon={<GroupIcon />}>
 						Artists
+					</Button>
+					<Button
+						variant={path.startsWith("/albums") ? "outlined" : "text"}
+						to="/albums"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<AlbumIcon />}>
+						Albums
+					</Button>
+					<Button
+						variant={path.startsWith("/albums") ? "outlined" : "text"}
+						to="/albums"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<AlbumIcon />}>
+						Performances
 					</Button>
 				</Toolbar>
 			</AppBar>
