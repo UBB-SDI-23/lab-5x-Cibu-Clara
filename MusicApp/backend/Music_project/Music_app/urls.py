@@ -11,7 +11,7 @@ urlpatterns = [
     path("artists/<int:id>/", ArtistInfo.as_view()),
     path("artists/order-by-views/", ArtistViewsStatistics.as_view()),
 
-    path("albums/", AlbumList.as_view(), name="albums"),
+    path("albums/", AlbumListCreateView.as_view(), name="albums"),
     path("albums/<int:id>/", AlbumInfo.as_view()),
 
     path("performances/", PerformsOnList.as_view(), name="performances"),
