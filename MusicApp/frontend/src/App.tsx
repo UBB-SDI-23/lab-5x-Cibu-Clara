@@ -14,6 +14,8 @@ import {ArtistDetails} from "./components/artists/ArtistDetails";
 import {EditArtist} from "./components/artists/EditArtist";
 import {DeleteArtist} from "./components/artists/DeleteArtist";
 import {AddArtist} from "./components/artists/AddArtist";
+import {ShowAlbums} from "./components/albums/ShowAlbums";
+import {AddAlbum} from "./components/albums/AddAlbum";
 
 function App() {
 	return (
@@ -29,12 +31,17 @@ function App() {
 					<Route path="/songs/add" element={<AddSong />} />
 					<Route path="/songs/filter-by-year/:year" element={<FilterSongsByYear />} />
 
-					<Route path="/" element={<AppHome />} />
 					<Route path="/artists" element={<ShowArtists />} />
 					<Route path="/artists/:artistId/details" element={<ArtistDetails />} />
 					<Route path="/artists/:artistId/edit" element={<EditArtist />} />
 					<Route path="/artists/:artistId/delete" element={<DeleteArtist />} />
 					<Route path="/artists/add" element={<AddArtist />} />
+
+					<Route path="/albums" element={<ShowAlbums />} />
+					<Route path="/albums/:albumId/details" element={<AlbumDetails />} />
+					<Route path="/albums/:albumId/edit" element={<EditAlbum />} />
+					<Route path="/albums/:albumId/delete" element={<DeleteAlbum />} />
+					<Route path="/albums/add" element={<AddAlbum />} />
 				</Routes>
 			</Router>
 		</React.Fragment>

@@ -1,4 +1,3 @@
-/*
 import {
 	Button,
 	Card,
@@ -20,23 +19,23 @@ import axios from "axios";
 export const AddAlbum = () => {
 	const navigate = useNavigate();
 
-	const [album, setAlbum] = useState<Album>({
+	const [album, setAlbum] = useState({
 		album_title: "",
 		nr_of_tracks: 0,
         label:"",
         year_of_release:0,
+		main_artist: 1
 	});
 
-	const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
-
+	const [page] = useState(1);
+    const [pageSize] = useState(10);
 	const [artists, setArtists] = useState<Artist[]>([]);
 
 	const fetchSuggestions = async (query: string) => {
 		try {
 			let url = `${BACKEND_API_URL}/artists/${query}/?page=${page}&page_size=${pageSize}`;
 			const response = await fetch(url);
-			const { count, next, previous, results } = await response.json();
+			const { results } = await response.json();
 			setArtists(results);
 			console.log(results);
 		} catch (error) {
@@ -131,4 +130,4 @@ export const AddAlbum = () => {
 			</Card>
 		</Container>
 	);
-};*/
+};
