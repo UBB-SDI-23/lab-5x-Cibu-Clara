@@ -60,7 +60,7 @@ export const AddAlbum = () => {
 		}
 	};
 
-	const handleInputChange = (event: any, value: any, reason: any) => {
+	const handleInputChange = (value: any, reason: any) => {
 		console.log("input", value, reason);
 
 		if (reason === "input") {
@@ -119,7 +119,7 @@ export const AddAlbum = () => {
 							onChange={(event, value) => {
 								if (value) {
 									console.log(value);
-									setAlbum({ ...album, main_artist: value.id });
+									setAlbum({ ...album, main_artist: value?.id });
 								}
 							}}
 						/>
