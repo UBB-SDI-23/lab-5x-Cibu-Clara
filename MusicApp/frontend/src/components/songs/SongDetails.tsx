@@ -33,7 +33,7 @@ export const SongDetails = () => {
 					<p>Composer: {song?.composer}</p>
 					<p>Genre: {song?.genre}</p>
 					<p>Year of release: {song?.year_of_release}</p>
-					<p>Song artists:</p>
+					<p>Song's artists:</p>
 					<ul>
 						{song?.artists?.map((artist) => (
 							<li key={artist.id}>{artist.artist_name}</li>

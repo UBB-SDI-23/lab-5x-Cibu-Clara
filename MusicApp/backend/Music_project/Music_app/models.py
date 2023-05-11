@@ -41,7 +41,7 @@ class Album(models.Model):
     today = datetime.datetime.now()
     year = today.year
     year_of_release = models.PositiveSmallIntegerField(validators=[MinValueValidator(1800), MaxValueValidator(year)])
-    main_artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    main_artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='albums')
 
     def __str__(self):
         return self.album_title
