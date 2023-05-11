@@ -73,6 +73,7 @@ class AlbumSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = Album
         fields = "__all__"
+        ordering = ['id']
 
 
 class AlbumSerializerID(DynamicFieldsModelSerializer):

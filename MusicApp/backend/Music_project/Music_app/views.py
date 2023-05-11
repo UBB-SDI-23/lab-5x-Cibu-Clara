@@ -210,6 +210,7 @@ class ArtistInfo(APIView):
         return Response({"msg": "deleted"}, status=status.HTTP_204_NO_CONTENT)
 
 
+'''
 class AlbumList(APIView):
     @extend_schema(responses=AlbumSerializer)
     def get(self, request):
@@ -224,9 +225,23 @@ class AlbumList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+'''
+
+
+class AlbumListCreateView(generics.ListCreateAPIView):
+    serializer_class = AlbumSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        queryset = Artist.objects.all().order_by('id')
+        print(queryset.explain())
+        return queryset
 
 
 class AlbumInfo(APIView):
+    serializer_class = AlbumSerializerID
+    pagination_class = CustomPagination
+
     def get(self, request, id):
         try:
             obj = Album.objects.get(id=id)

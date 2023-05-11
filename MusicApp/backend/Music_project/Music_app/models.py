@@ -43,6 +43,9 @@ class Album(models.Model):
     year_of_release = models.PositiveSmallIntegerField(validators=[MinValueValidator(1800), MaxValueValidator(year)])
     main_artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='albums')
 
+    class Meta:
+        ordering = ['id']
+
     def __str__(self):
         return self.album_title
 
