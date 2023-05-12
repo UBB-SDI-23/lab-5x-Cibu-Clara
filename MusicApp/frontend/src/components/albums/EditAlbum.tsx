@@ -14,17 +14,18 @@ import { Artist } from "../../models/Artist";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {debounce} from 'lodash';
 import axios from "axios";
+import {Album} from "../../models/Album";
 
 export const EditAlbum = () => {
 	const navigate = useNavigate();
 	const {albumId} = useParams();
 
-	const [album, setAlbum] = useState({
+	const [album, setAlbum] = useState<Album>({
 		album_title: "",
 		nr_of_tracks: 0,
         label:"",
         year_of_release:0,
-		main_artist: 1
+		main_artist_id: 1
 	});
 
 	useEffect(() => {
@@ -131,12 +132,12 @@ export const EditAlbum = () => {
 							getOptionLabel={(option) => `${option.artist_name}`}
 							renderInput={(params) => <TextField {...params} label="Artist" variant="outlined" />}
 							filterOptions={(options, state) => options.filter((option) => option.artist_name.toLowerCase().includes(state.inputValue.toLowerCase()))}
-
 							onInputChange={handleInputChange}
 							onChange={(event, value) => {
 								if (value) {
 									console.log(value);
-									setAlbum({ ...album, main_artist: value.id });
+									console.log(event)
+									setAlbum({ ...album, main_artist_id: value.id });
 								}
 							}}
 						/>
