@@ -118,7 +118,7 @@ export const AddAlbum = () => {
 							onChange={( event, value) => {
 								if (value) {
 									console.log(value);
-									setAlbum({ ...album, main_artist: value.id});
+									setAlbum({ ...album, main_artist_id: value.id});
 								}
 							}}
 						/>
