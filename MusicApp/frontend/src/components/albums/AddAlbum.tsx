@@ -23,7 +23,6 @@ export const AddAlbum = () => {
 		nr_of_tracks: 0,
         label:"",
         year_of_release:0,
-		main_artist: 1
 	});
 
 	const [page] = useState(1);
