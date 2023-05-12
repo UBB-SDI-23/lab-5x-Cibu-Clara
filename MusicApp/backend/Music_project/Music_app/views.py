@@ -264,7 +264,7 @@ class AlbumInfo(APIView):
             msg = {"msg": "not found"}
             return Response(msg, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = AlbumSerializerID(obj, exclude_fields=['main_artist__songs', 'main_artist__albums'])
+        serializer = AlbumSerializerID(obj, exclude_fields=['main_artist__songs'])
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(responses=AlbumSerializer)
