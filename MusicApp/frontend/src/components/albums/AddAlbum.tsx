@@ -114,9 +114,8 @@ export const AddAlbum = () => {
 							getOptionLabel={(option) => `${option.artist_name}`}
 							renderInput={(params) => <TextField {...params} label="Artist" variant="outlined" />}
 							filterOptions={(options, state) => options.filter((option) => option.artist_name.toLowerCase().includes(state.inputValue.toLowerCase()))}
-
 							onInputChange={handleInputChange}
-							onChange={( event, value) => {
+							onChange={( event: React.ChangeEvent<{}>, value) => {
 								if (value) {
 									console.log(value);
 									setAlbum({ ...album, main_artist: value.id});

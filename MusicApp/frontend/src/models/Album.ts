@@ -1,7 +1,7 @@
 import {Artist} from "./Artist";
 
 export interface Album {
-    id?: number;
+    id: number;
     album_title: string;
     nr_of_tracks: number;
     label: string;
