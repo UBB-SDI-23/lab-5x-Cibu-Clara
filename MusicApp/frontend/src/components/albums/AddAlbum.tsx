@@ -61,8 +61,8 @@ export const AddAlbum = () => {
 		}
 	};
 
-	const handleInputChange = (value: any, reason: any) => {
-		console.log("input", value, reason);
+	const handleInputChange = (event:any, value: any, reason: any) => {
+		console.log("input", event, value, reason);
 
 		if (reason === "input") {
 			debouncedFetchSuggestions(value);
