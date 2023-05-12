@@ -10,6 +10,7 @@ urlpatterns = [
     path("artists/", ArtistListCreateView.as_view(), name="artists"),
     path("artists/<int:id>/", ArtistInfo.as_view()),
     path("artists/order-by-views/", ArtistViewsStatistics.as_view()),
+    path("artists/order-by-name/<str:artist_name>/", ArtistsOrderedByName.as_view(), name="artist_name"),
 
     path("albums/", AlbumListCreateView.as_view(), name="albums"),
     path("albums/<int:id>/", AlbumInfo.as_view()),

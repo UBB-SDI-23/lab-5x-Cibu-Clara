@@ -210,6 +210,20 @@ class ArtistInfo(APIView):
         return Response({"msg": "deleted"}, status=status.HTTP_204_NO_CONTENT)
 
 
+class ArtistsOrderedByName(generics.ListCreateAPIView):
+    serializer_class = ArtistSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        artist_name = self.kwargs.get("artist_name")
+        queryset = Artist.objects.all()
+        if artist_name is not None:
+            queryset = queryset.filter(artist_name__icontains=artist_name)
+        print(queryset.explain())
+        print(artist_name)
+        return queryset
+
+
 '''
 class AlbumList(APIView):
     @extend_schema(responses=AlbumSerializer)

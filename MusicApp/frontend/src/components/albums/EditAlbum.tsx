@@ -49,7 +49,7 @@ export const EditAlbum = () => {
 
 	const fetchSuggestions = async (query: string) => {
 		try {
-			let url = `${BACKEND_API_URL}/artists/${query}/?page=${page}&page_size=${pageSize}`;
+			let url = `${BACKEND_API_URL}/artists/order-by-name/${query}/?page=${page}&page_size=${pageSize}`;
 			const response = await fetch(url);
 			const { results } = await response.json();
 			setArtists(results);

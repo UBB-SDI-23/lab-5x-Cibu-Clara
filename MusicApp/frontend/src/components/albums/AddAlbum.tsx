@@ -32,7 +32,7 @@ export const AddAlbum = () => {
 
 	const fetchSuggestions = async (query: string) => {
 		try {
-			let url = `${BACKEND_API_URL}/artists/${query}/?page=${page}&page_size=${pageSize}`;
+			let url = `${BACKEND_API_URL}/artists/order-by-name/${query}/?page=${page}&page_size=${pageSize}`;
 			const response = await fetch(url);
 			const { results } = await response.json();
 			setArtists(results);
@@ -115,7 +115,7 @@ export const AddAlbum = () => {
 							renderInput={(params) => <TextField {...params} label="Artist" variant="outlined" />}
 							filterOptions={(options, state) => options.filter((option) => option.artist_name.toLowerCase().includes(state.inputValue.toLowerCase()))}
 							onInputChange={handleInputChange}
-							onChange={( event: React.ChangeEvent<{}>, value) => {
+							onChange={( event, value) => {
 								if (value) {
 									console.log(value);
 									setAlbum({ ...album, main_artist: value.id});
