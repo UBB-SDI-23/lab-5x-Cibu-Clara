@@ -69,6 +69,7 @@ class AlbumSerializer(DynamicFieldsModelSerializer):
     label = serializers.CharField(max_length=100)
     year_of_release = serializers.IntegerField()
     main_artist = Artist()
+    main_artist_id = serializers.IntegerField(write_only=True)
 
     class Meta:
         model = Album
