@@ -7,7 +7,7 @@ import {
 	Autocomplete
 } from "@mui/material";
 import { Container } from "@mui/system";
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_API_URL } from "../../constants";
 import { Artist } from "../../models/Artist";
