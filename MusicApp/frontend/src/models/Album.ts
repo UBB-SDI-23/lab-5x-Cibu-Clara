@@ -7,4 +7,5 @@ export interface Album {
     label: string;
     year_of_release: number;
     main_artist?: Artist;
+    main_artist_id?:number;
 }
