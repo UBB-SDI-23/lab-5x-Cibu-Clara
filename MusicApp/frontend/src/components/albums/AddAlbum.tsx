@@ -14,11 +14,12 @@ import { Artist } from "../../models/Artist";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {debounce} from 'lodash';
 import axios from "axios";
+import {Album} from "../../models/Album";
 
 export const AddAlbum = () => {
 	const navigate = useNavigate();
 
-	const [album, setAlbum] = useState({
+	const [album, setAlbum] = useState<Album>({
 		album_title: "",
 		nr_of_tracks: 0,
         label:"",
