@@ -24,7 +24,7 @@ export const AddAlbum = () => {
 		nr_of_tracks: 0,
         label:"",
         year_of_release:0,
-		main_artist: 1
+		main_artist_id: 1
 	});
 
 	const [page] = useState(1);
@@ -119,7 +119,7 @@ export const AddAlbum = () => {
 							onChange={( event, value) => {
 								if (value) {
 									console.log(value);
-									setAlbum({ ...album, main_artist: value.id});
+									setAlbum({ ...album, main_artist_id: value.id});
 								}
 							}}
 						/>
