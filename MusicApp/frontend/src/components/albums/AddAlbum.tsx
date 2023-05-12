@@ -116,10 +116,10 @@ export const AddAlbum = () => {
 							filterOptions={(options, state) => options.filter((option) => option.artist_name.toLowerCase().includes(state.inputValue.toLowerCase()))}
 
 							onInputChange={handleInputChange}
-							onChange={(event, value) => {
+							onChange={( event, value) => {
 								if (value) {
 									console.log(value);
-									setAlbum({ ...album, main_artist: value?.id });
+									setAlbum({ ...album, main_artist: value.id});
 								}
 							}}
 						/>
