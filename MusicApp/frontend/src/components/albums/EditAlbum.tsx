@@ -71,7 +71,7 @@ export const EditAlbum = () => {
 	const editAlbum = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();
 		try {
-			await axios.post(`${BACKEND_API_URL}/albums/`, album);
+			await axios.patch(`${BACKEND_API_URL}/albums/`, album);
 			navigate("/albums");
 		} catch (error) {
 			console.log(error);
