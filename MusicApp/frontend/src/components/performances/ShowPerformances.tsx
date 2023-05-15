@@ -24,7 +24,7 @@ import { Paginator } from "../pagination/Pagination";
 export const ShowPerformances = () => {
     const [loading, setLoading] = useState(false);
     const [performances, setPerformances] = useState<PerformsOn[]>([]);
-    // const [order, setOrder] = useState("asc");
+    const [order, setOrder] = useState("asc");
     const [page, setPage] = useState(1);
     const [pageSize] = useState(10);
     const [totalRows, setTotalRows] = useState(0);
@@ -66,7 +66,7 @@ export const ShowPerformances = () => {
         fetchPerformances();
       }, [page]);
 
-/*    const sorting = () => {
+    const sorting = () => {
         if (order === "asc") {
             const sorted = [...performances].sort((p1, p2) =>
                     p1.artist?.artist_name.toLowerCase() > p2.artist?.artist_name.toLowerCase() ? 1 : -1);
@@ -79,7 +79,7 @@ export const ShowPerformances = () => {
             setPerformances(sorted);
             setOrder("asc");
         }
-    }*/
+    }
 
         return (
 		<Container>
@@ -100,7 +100,7 @@ export const ShowPerformances = () => {
 						<TableHead>
 							<TableRow>
 								<TableCell>#</TableCell>
-                                <TableCell align="center">Artist Name</TableCell>
+                                <TableCell onClick={() => sorting()} align="center">Artist Name</TableCell>
 								<TableCell align="right">Song Name</TableCell>
 								<TableCell align="right">Number of Views</TableCell>
 								<TableCell align="right">Duration</TableCell>
@@ -114,10 +114,10 @@ export const ShowPerformances = () => {
 									</TableCell>
 									<TableCell component="th" scope="row">
 										<Link to={`/performances/${performance.id}/details`} title="View performance details">
-											{performance.artist?.artist_name}
+											{performance.artist.artist_name}
 										</Link>
 									</TableCell>
-									<TableCell align="center">{performance.song?.song_name}</TableCell>
+									<TableCell align="center">{performance.song.song_name}</TableCell>
 									<TableCell align="right">{performance.nr_of_views}</TableCell>
 									<TableCell align="right">{performance.duration}</TableCell>
 									<TableCell align="right">
