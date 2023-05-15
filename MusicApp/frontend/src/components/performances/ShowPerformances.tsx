@@ -104,7 +104,7 @@ export const ShowPerformances = () => {
 								<TableCell align="right">Song name</TableCell>
 								<TableCell align="right">Number of views</TableCell>
 								<TableCell align="right">Duration</TableCell>
-								<TableCell align="right">Operations</TableCell>
+								<TableCell align="center">Operations</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>

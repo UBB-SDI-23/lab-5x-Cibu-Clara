@@ -93,10 +93,12 @@ class AlbumSerializerID(DynamicFieldsModelSerializer):
 class PerformsOnSerializer(DynamicFieldsModelSerializer):
     """
     """
-    song = Song()
-    artist = Artist()
+    song = SongSerializer(read_only=True)
+    artist = ArtistSerializer(read_only=True)
     nr_of_views = serializers.IntegerField()
     duration = serializers.CharField(max_length=10)
+    song_id = serializers.IntegerField(write_only=True)
+    artist_id = serializers.IntegerField(write_only=True)
 
     class Meta:
         model = PerformsOn
