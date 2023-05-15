@@ -18,19 +18,13 @@ import {Album} from "../../models/Album";
 
 export const AddAlbum = () => {
 	const navigate = useNavigate();
-	const artist: Artist = {
-		artist_name: "",
-		real_name: "",
-		country: "",
-		email: ""
-    }
 
 	const [album, setAlbum] = useState<Album>({
 		album_title: "",
 		nr_of_tracks: 1,
 		label: "",
 		year_of_release: 2000,
-		main_artist: artist
+		main_artist_id: 1
 	});
 
 	const [page] = useState(1);
