@@ -20,19 +20,12 @@ export const EditAlbum = () => {
 	const navigate = useNavigate();
 	const {albumId} = useParams();
 
-	const artist: Artist = {
-		artist_name: "",
-		real_name: "",
-		country: "",
-		email: ""
-    }
-
 	const [album, setAlbum] = useState<Album>({
 		album_title: "",
 		nr_of_tracks: 1,
 		label: "",
 		year_of_release: 2000,
-		main_artist: artist
+		main_artist_id: 1
 	});
 
 	useEffect(() => {
