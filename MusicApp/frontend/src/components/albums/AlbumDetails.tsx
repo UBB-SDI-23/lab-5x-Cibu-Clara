@@ -13,12 +13,12 @@ export const AlbumDetails = () => {
 	const [album, setAlbum] = useState<Album>();
 
 	useEffect(() => {
-		const fetchArtist = async () => {
+		const fetchAlbum = async () => {
 			const response = await fetch(`${BACKEND_API_URL}/albums/${albumId}/`);
 			const album = await response.json();
 			setAlbum(album);
 		};
-		fetchArtist();
+		fetchAlbum();
 	}, [albumId]);
 
 	return (
