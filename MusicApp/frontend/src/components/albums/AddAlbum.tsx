@@ -116,7 +116,7 @@ export const AddAlbum = () => {
 							onChange={(event) => setAlbum({ ...album, year_of_release: +event.target.value })}
 						/>
 						<Autocomplete
-							id="main_artist"
+							id="main_artist_id"
 							options={artists}
 							getOptionLabel={(option) => `${option.artist_name}`}
 							renderInput={(params) => <TextField {...params} label="Artist" variant="outlined" />}
