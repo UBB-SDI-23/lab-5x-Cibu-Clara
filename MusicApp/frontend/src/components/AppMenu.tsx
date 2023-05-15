@@ -56,8 +56,8 @@ export const AppMenu = () => {
 						Albums
 					</Button>
 					<Button
-						variant={path.startsWith("/albums") ? "outlined" : "text"}
-						to="/albums"
+						variant={path.startsWith("/performances") ? "outlined" : "text"}
+						to="/performances"
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}
