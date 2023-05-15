@@ -52,7 +52,6 @@ function App() {
 
 					<Route path="/performances" element={<ShowPerformances />} />
 					<Route path="/performances/:performanceId/details" element={<PerformanceDetails />} />
-					<Route path="/performances/:performanceId/edit" element={<EditPerformance />} />
 					<Route path="/performances/:performanceId/delete" element={<DeletePerformance />} />
 					<Route path="/performances/add" element={<AddPerformance />} />
 				</Routes>
