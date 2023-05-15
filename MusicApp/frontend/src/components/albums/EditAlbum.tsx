@@ -27,13 +27,13 @@ export const EditAlbum = () => {
 		nr_of_tracks: 1,
 		label: "",
 		year_of_release: 2000,
-		main_artist_id: 1
+		main_artist_id: 1,
 	});
 
 	useEffect(() => {
 		const fetchAlbum = async () => {
 			const response = await fetch(`${BACKEND_API_URL}/albums/${albumId}/`);
-			const coach = await response.json();
+			const album = await response.json();
 			setAlbum({
 				album_title: album.album_title,
                 nr_of_tracks: album.nr_of_tracks,
@@ -41,7 +41,7 @@ export const EditAlbum = () => {
                 year_of_release: album.year_of_release,
                 main_artist_id: album.main_artist_id
 		})
-            console.log(coach);
+            console.log(album);
 		};
 		fetchAlbum();
 	}, [albumId]);
@@ -143,7 +143,7 @@ export const EditAlbum = () => {
 								}
 							}}
 						/>
-						<Button type="submit">Edit Album</Button>
+						<Button type="submit">Update Album</Button>
 					</form>
 				</CardContent>
 			</Card>
