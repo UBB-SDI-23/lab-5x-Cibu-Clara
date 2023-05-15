@@ -19,8 +19,10 @@ import {Album} from "../../models/Album";
 export const EditAlbum = () => {
 	const navigate = useNavigate();
 	const {albumId} = useParams();
+    const id = albumId ? parseInt(albumId) : 0;
 
 	const [album, setAlbum] = useState<Album>({
+		id,
 		album_title: "",
 		nr_of_tracks: 1,
 		label: "",
