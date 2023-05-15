@@ -387,7 +387,7 @@ class PerformsOnInfo(APIView):
             msg = {"msg": "not found"}
             return Response(msg, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = PerformsOnSerializerID(obj, exclude_fields=['song__artists', 'artist__songs', 'artist__albums'])
+        serializer = PerformsOnSerializerID(obj, exclude_fields=['song__artists', 'artist__songs'])
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(responses=PerformsOnSerializer)
