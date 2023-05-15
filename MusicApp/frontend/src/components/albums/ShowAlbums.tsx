@@ -129,7 +129,7 @@ export const ShowAlbums = () => {
 											{album.album_title}
 										</Link>
 									</TableCell>
-									<TableCell align="right">{album.nr_of_tracks}</TableCell>
+									<TableCell align="center">{album.nr_of_tracks}</TableCell>
 									<TableCell align="right">{album.label}</TableCell>
 									<TableCell align="right">{album.year_of_release}</TableCell>
 									<TableCell align="right">
