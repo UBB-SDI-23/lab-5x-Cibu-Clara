@@ -56,5 +56,8 @@ class PerformsOn(models.Model):
     nr_of_views = models.IntegerField()
     duration = models.CharField(max_length=10, validators=[RegexValidator("..:..")])
 
+    class Meta:
+        ordering = ['id']
+
     def __str__(self):
         return self.artist.artist_name + " - " + self.song.song_name

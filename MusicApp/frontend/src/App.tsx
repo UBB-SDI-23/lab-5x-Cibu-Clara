@@ -19,6 +19,7 @@ import {AddAlbum} from "./components/albums/AddAlbum";
 import {EditAlbum} from "./components/albums/EditAlbum";
 import {AlbumDetails} from "./components/albums/AlbumDetails";
 import {DeleteAlbum} from "./components/albums/DeleteAlbum";
+import {ShowPerformances} from "./components/performances/ShowPerformances";
 
 function App() {
 	return (
@@ -45,6 +46,8 @@ function App() {
 					<Route path="/albums/:albumId/edit" element={<EditAlbum />} />
 					<Route path="/albums/:albumId/delete" element={<DeleteAlbum />} />
 					<Route path="/albums/add" element={<AddAlbum />} />
+
+					<Route path="/performances" element={<ShowPerformances />} />
 				</Routes>
 			</Router>
 		</React.Fragment>

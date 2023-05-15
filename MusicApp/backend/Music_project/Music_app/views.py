@@ -336,6 +336,7 @@ class SongFilterView(generics.ListCreateAPIView):
         return queryset
 
 
+'''
 class PerformsOnList(APIView):
     @extend_schema(responses=PerformsOnSerializer)
     def get(self, request):
@@ -350,6 +351,17 @@ class PerformsOnList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+'''
+
+
+class PerformsOnListCreateView(generics.ListCreateAPIView):
+    serializer_class = PerformsOnSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        queryset = PerformsOn.objects.all().order_by('id')
+        print(queryset.explain())
+        return queryset
 
 
 class PerformsOnInfo(APIView):

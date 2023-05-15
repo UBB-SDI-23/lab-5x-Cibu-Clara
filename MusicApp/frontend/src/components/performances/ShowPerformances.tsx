@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {Album} from "../../models/Album";
+import {PerformsOn} from "../../models/PerformsOn";
 import {BACKEND_API_URL} from "../../constants";
 import AddIcon from "@mui/icons-material/Add";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
@@ -21,9 +21,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Paginator } from "../pagination/Pagination";
 
-export const ShowAlbums = () => {
+export const ShowPerformances = () => {
     const [loading, setLoading] = useState(false);
-    const [albums, setAlbums] = useState<Album[]>([]);
+    const [performances, setPerformances] = useState<PerformsOn[]>([]);
     const [order, setOrder] = useState("asc");
     const [page, setPage] = useState(1);
     const [pageSize] = useState(10);
@@ -50,102 +50,89 @@ export const ShowAlbums = () => {
         setPage(page - 1);
     }
 
-/*    useEffect(() => {
-        setLoading(true);
-        fetch(`${BACKEND_API_URL}/songs/`)
-            .then((response) => response.json())
-            .then((data) => {
-                setSongs(data);
-                setLoading(false);
-            });
-        }, [])*/
-
-    const fetchAlbums = async () => {
+    const fetchPerformances = async () => {
         setLoading(true);
         const response = await fetch(
-          `${BACKEND_API_URL}/albums/?page=${page}&page_size=${pageSize}`
+          `${BACKEND_API_URL}/performances/?page=${page}&page_size=${pageSize}`
         );
         const { count, next, results } = await response.json();
-        setAlbums(results);
+        setPerformances(results);
         setTotalRows(count);
         setIsLastPage(!next);
         setLoading(false);
       };
 
       useEffect(() => {
-        fetchAlbums();
+        fetchPerformances();
       }, [page]);
 
     const sorting = () => {
         if (order === "asc") {
-            const sorted = [...albums].sort((a1, a2) =>
-                    a1.album_title.toLowerCase() > a2.album_title.toLowerCase() ? 1 : -1);
-            setAlbums(sorted);
+            const sorted = [...performances].sort((p1, p2) =>
+                    p1.artist?.artist_name.toLowerCase() > p2.artist?.artist_name.toLowerCase() ? 1 : -1);
+            setPerformances(sorted);
             setOrder("desc");
         }
         if (order === "desc") {
-            const sorted = [...albums].sort((a1, a2) =>
-                a1.album_title.toLowerCase() < a2.album_title.toLowerCase() ? 1 : -1
-            );
-            setAlbums(sorted);
+            const sorted = [...performances].sort((p1, p2) =>
+                p1.artist?.artist_name.toLowerCase() < p2.artist?.artist_name.toLowerCase() ? 1 : -1);
+            setPerformances(sorted);
             setOrder("asc");
         }
     }
 
         return (
 		<Container>
-			<h1>All Albums </h1>
+			<h1>All Performances </h1>
 			{loading && <CircularProgress />}
-			{!loading && albums.length === 0 && <p>No albums found</p>}
+			{!loading && performances.length === 0 && <p>No performances found</p>}
 			{!loading && (
-				<IconButton component={Link} sx={{ mr:155 }} to={`/albums/add`}>
-					<Tooltip title="Add a new album" arrow>
+				<IconButton component={Link} sx={{ mr:155 }} to={`/performances/add`}>
+					<Tooltip title="Add a new performance" arrow>
 						<AddIcon color="primary" />
 					</Tooltip>
 				</IconButton>
 			)}
-			{!loading && albums.length > 0 && (
+			{!loading && performances.length > 0 && (
                 <>
 				<TableContainer component={Paper}>
 					<Table sx={{ minWidth: 650 }} aria-label="simple table">
 						<TableHead>
 							<TableRow>
 								<TableCell>#</TableCell>
-                                <TableCell onClick={() => sorting()} align="center">Album title</TableCell>
-								<TableCell align="right">Number of tracks</TableCell>
-								<TableCell align="right">Label</TableCell>
-								<TableCell align="right">Year of release</TableCell>
-								<TableCell align="center">Operations</TableCell>
+                                <TableCell onClick={() => sorting()} align="center">Artist Name</TableCell>
+								<TableCell align="right">Song Name</TableCell>
+								<TableCell align="right">Number of Views</TableCell>
+								<TableCell align="right">Duration</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
-                            {albums.map((album, index) => (
-								<TableRow key={album.id}>
+                            {performances.map((performance, index) => (
+								<TableRow key={performance.id}>
 									<TableCell component="th" scope="row">
 										{index + 1}
 									</TableCell>
 									<TableCell component="th" scope="row">
-										<Link to={`/albums/${album.id}/details`} title="View album details">
-											{album.album_title}
+										<Link to={`/performances/${performance.id}/details`} title="View performance details">
+											{performance.artist?.artist_name}
 										</Link>
 									</TableCell>
-									<TableCell align="right">{album.nr_of_tracks}</TableCell>
-									<TableCell align="right">{album.label}</TableCell>
-									<TableCell align="right">{album.year_of_release}</TableCell>
-									<TableCell align="right">{album.main_artist?.artist_name}</TableCell>
+									<TableCell align="center">{performance.song?.song_name}</TableCell>
+									<TableCell align="right">{performance.nr_of_views}</TableCell>
+									<TableCell align="right">{performance.duration}</TableCell>
 									<TableCell align="right">
 										<IconButton
 											component={Link}
 											sx={{ mr: 3 }}
-											to={`/albums/${album.id}/details`}>
-											<Tooltip title="View album details" arrow>
+											to={`/performances/${performance.id}/details`}>
+											<Tooltip title="View performance details" arrow>
 												<ReadMoreIcon color="primary" />
 											</Tooltip>
 										</IconButton>
-										<IconButton component={Link} sx={{ mr: 3 }} to={`/albums/${album.id}/edit`}>
+										<IconButton component={Link} sx={{ mr: 3 }} to={`/performances/${performance.id}/edit`}>
 											<EditIcon />
 										</IconButton>
-										<IconButton component={Link} sx={{ mr: 3 }} to={`/albums/${album.id}/delete`}>
+										<IconButton component={Link} sx={{ mr: 3 }} to={`/albums/${performance.id}/delete`}>
 											<DeleteForeverIcon sx={{ color: "red" }} />
 										</IconButton>
 									</TableCell>

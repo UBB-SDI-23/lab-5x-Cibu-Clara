@@ -101,6 +101,7 @@ class PerformsOnSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = PerformsOn
         fields = "__all__"
+        ordering = ['id']
 
 
 class PerformsOnSerializerID(DynamicFieldsModelSerializer):
