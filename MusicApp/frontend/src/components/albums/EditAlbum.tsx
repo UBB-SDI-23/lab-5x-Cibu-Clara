@@ -37,7 +37,7 @@ export const EditAlbum = () => {
                 nr_of_tracks: album.nr_of_tracks,
                 label: album.label,
                 year_of_release: album.year_of_release,
-                main_artist: album.main_artist
+                main_artist_id: album.main_artist_id
 		})
             console.log(coach);
 		};
