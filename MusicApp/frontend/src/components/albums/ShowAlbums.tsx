@@ -115,7 +115,6 @@ export const ShowAlbums = () => {
 								<TableCell align="right">Number of tracks</TableCell>
 								<TableCell align="right">Label</TableCell>
 								<TableCell align="right">Year of release</TableCell>
-								<TableCell align="right">Main artist</TableCell>
 								<TableCell align="center">Operations</TableCell>
 							</TableRow>
 						</TableHead>
@@ -133,7 +132,6 @@ export const ShowAlbums = () => {
 									<TableCell align="right">{album.nr_of_tracks}</TableCell>
 									<TableCell align="right">{album.label}</TableCell>
 									<TableCell align="right">{album.year_of_release}</TableCell>
-									<TableCell align="right">{album?.main_artist?.artist_name}</TableCell>
 									<TableCell align="right">
 										<IconButton
 											component={Link}
