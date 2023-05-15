@@ -6,6 +6,7 @@ urlpatterns = [
     path("songs/<int:id>/", SongInfo.as_view()),
     path("songs/filter-by-year/<int:year>/", SongFilterView.as_view(), name="year"),
     path("songs/order-by-performances/", SongsNumberStatistics.as_view()),
+    path("songs/order-by-name/<str:song_name>/", SongsOrderedByName.as_view(), name="song_name"),
 
     path("artists/", ArtistListCreateView.as_view(), name="artists"),
     path("artists/<int:id>/", ArtistInfo.as_view()),
