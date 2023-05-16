@@ -454,7 +454,7 @@ class ArtistsOrderedByAverageNoOfViews(generics.ListCreateAPIView):
     pagination_class = CustomPagination
 
     def get_queryset(self):
-        queryset = Artist.objects.annotate(avg_views=Count('performson__nr_of_views')).order_by('avg_views')
+        queryset = Artist.objects.annotate(avg_views=Avg('performson__nr_of_views')).order_by('avg_views')
         print(queryset.explain())
         return queryset
 
