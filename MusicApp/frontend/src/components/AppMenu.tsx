@@ -6,27 +6,15 @@ import GroupIcon from '@mui/icons-material/Group';
 import AlbumIcon from '@mui/icons-material/Album';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
-import {useState} from "react";
 
 export const AppMenu = () => {
 	const location = useLocation();
 	const path = location.pathname;
-	// State variables for hover functionality
-	const [isHovered, setIsHovered] = useState(false);
-
-	// Event handlers for hover functionality
-    const handleMouseEnter = () => {
-       setIsHovered(true);
-    };
-
-    const handleMouseLeave = () => {
-       setIsHovered(false);
-	};
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="absolute" sx={{ marginBottom: "20px" }}>
-				<Toolbar>
+			<AppBar position="absolute" sx={{ marginBottom: "20px", backgroundColor: "pink" }}>
+				<Toolbar >
 					<IconButton
 						component={Link}
 						to="/"
@@ -81,31 +69,10 @@ export const AppMenu = () => {
 						to="/statistics"
 						component={Link}
 						color="inherit"
-						sx={{ ml: "auto" }}
-						startIcon={<SignalCellularAltIcon />}
-						onMouseEnter={handleMouseEnter} // Attach event handler for mouse enter
-            			onMouseLeave={handleMouseLeave} // Attach event handler for mouse leave
-          				>
+						 sx={{ ml: "auto" }}
+						startIcon={<SignalCellularAltIcon />}>
 						Statistics
 					</Button>
-					{/* Conditionally render the statistics buttons */}
-          			{isHovered && (
-            		<div
-              			style={{
-                		position: "absolute",
-                		top: "100%",
-                		left: "50%",
-                		transform: "translateX(-50%)",
-						display: "flex",
-              			flexDirection: "column",
-              			alignItems: "center",
-              			marginTop: "8px",
-            			}}
-          				>
-            		<Button variant="outlined">Statistics1</Button>
-            		<Button variant="outlined">Statistics2</Button>
-          			</div>
-					)}
 				</Toolbar>
 			</AppBar>
 		</Box>
