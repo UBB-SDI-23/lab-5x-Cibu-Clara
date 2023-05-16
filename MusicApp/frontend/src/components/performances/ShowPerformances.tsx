@@ -133,7 +133,7 @@ export const ShowPerformances = () => {
 										<IconButton component={Link} sx={{ mr: 3 }} to={`/performances/${performance.id}/edit`}>
 											<EditIcon />
 										</IconButton>
-										<IconButton component={Link} sx={{ mr: 3 }} to={`/albums/${performance.id}/delete`}>
+										<IconButton component={Link} sx={{ mr: 3 }} to={`/performances/${performance.id}/delete`}>
 											<DeleteForeverIcon sx={{ color: "red" }} />
 										</IconButton>
 									</TableCell>
