@@ -23,6 +23,7 @@ import {ShowPerformances} from "./components/performances/ShowPerformances";
 import {PerformanceDetails} from "./components/performances/PerformanceDetails";
 import {DeletePerformance} from "./components/performances/DeletePerformance";
 import {AddPerformance} from "./components/performances/AddPerformance";
+import {EditPerformance} from "./components/performances/EditPerformance";
 
 function App() {
 	return (

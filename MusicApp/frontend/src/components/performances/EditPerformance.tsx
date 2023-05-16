@@ -14,7 +14,6 @@ import { Artist } from "../../models/Artist";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {debounce} from 'lodash';
 import axios from "axios";
-import {Album} from "../../models/Album";
 import {PerformsOn} from "../../models/PerformsOn";
 import {Song} from "../../models/Song";
 
