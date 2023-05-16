@@ -1,7 +1,5 @@
 import datetime
-
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 
 
 class Song(models.Model):
@@ -10,7 +8,7 @@ class Song(models.Model):
     genre = models.CharField(max_length=100)
     today = datetime.datetime.now()
     year = today.year
-    year_of_release = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(year)])
+    year_of_release = models.IntegerField()
     artists = models.ManyToManyField('Artist', through='PerformsOn')
 
     class Meta:
@@ -40,7 +38,7 @@ class Album(models.Model):
     label = models.CharField(max_length=100)
     today = datetime.datetime.now()
     year = today.year
-    year_of_release = models.PositiveSmallIntegerField(validators=[MinValueValidator(1800), MaxValueValidator(year)])
+    year_of_release = models.PositiveSmallIntegerField()
     main_artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='albums')
 
     class Meta:
@@ -54,7 +52,7 @@ class PerformsOn(models.Model):
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     nr_of_views = models.IntegerField()
-    duration = models.CharField(max_length=10, validators=[RegexValidator("..:..")])
+    duration = models.CharField(max_length=10)
 
     class Meta:
         ordering = ['id']
