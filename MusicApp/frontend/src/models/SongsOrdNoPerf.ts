@@ -1,6 +1,3 @@
-import { Song } from "./Song";
-import {Artist} from "./Artist";
-
 export interface SongsOrdNoPerf{
     id?: number;
     song_name: string;
