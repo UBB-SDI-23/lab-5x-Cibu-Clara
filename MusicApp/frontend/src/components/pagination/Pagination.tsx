@@ -105,6 +105,7 @@ export const Paginator = ({
 
             <Button
               variant={page === currentPage ? "contained" : "outlined"}
+              style={{backgroundColor: "#C8BEEA", color:"#72648B"}}
               disabled={page==="..."}
               onClick={() => setPage(Number(page))}
             >

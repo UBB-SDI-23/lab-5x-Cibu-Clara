@@ -13,7 +13,7 @@ export const AppMenu = () => {
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="absolute" sx={{ marginBottom: "20px", backgroundColor: "pink" }}>
+			<AppBar position="absolute" sx={{ marginBottom: "20px", backgroundColor: "#C8BEEA", color: "#72648B" }}>
 				<Toolbar >
 					<IconButton
 						component={Link}

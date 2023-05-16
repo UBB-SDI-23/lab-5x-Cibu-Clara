@@ -106,7 +106,7 @@ export const ShowSongs = () => {
                 InputLabelProps={{style: {color: 'darkgrey'}}}
                 style={{ marginRight: "16px", color:'whitesmoke' }}
             />
-            <Button component={Link} sx={{ mr: 3 }} to={`/songs/filter-by-year/${input}`} variant="contained" style={{color:"whitesmoke"}}>
+            <Button component={Link} sx={{ mr: 3}} to={`/songs/filter-by-year/${input}`} variant="contained" style={{backgroundColor: "#C8BEEA", color:"#72648B"}}>
                 Filter
             </Button>
             </div>
