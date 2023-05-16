@@ -435,6 +435,7 @@ class PerformsOnInfo(APIView):
         return Response({"msg": "deleted"}, status=status.HTTP_204_NO_CONTENT)
 
 
+'''
 class ArtistViewsStatistics(APIView):
     @extend_schema(responses=ArtistViewsStatisticsSerializer)
     def get(self, request):
@@ -445,6 +446,17 @@ class ArtistViewsStatistics(APIView):
 
         serializer = ArtistViewsStatisticsSerializer(statistics, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+'''
+
+
+class ArtistsOrderedByAverageNoOfViews(generics.ListCreateAPIView):
+    serializer_class = ArtistViewsStatisticsSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        queryset = Artist.objects.annotate(avg_views=Count('performson__nr_of_views')).order_by('avg_views')
+        print(queryset.explain())
+        return queryset
 
 
 '''

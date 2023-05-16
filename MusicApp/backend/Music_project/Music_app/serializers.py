@@ -121,11 +121,16 @@ class PerformsOnSerializerID(DynamicFieldsModelSerializer):
 class ArtistViewsStatisticsSerializer(DynamicFieldsModelSerializer):
     """
     """
+    artist_name = serializers.CharField(max_length=100)
+    real_name = serializers.CharField(max_length=100)
+    country = serializers.CharField(max_length=100)
+    email = serializers.EmailField(max_length=100)
     avg_views = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Artist
-        fields = ['artist_name', 'avg_views']
+        fields = ['artist_name', 'real_name', 'country', 'email', 'avg_views']
+        depth = 1
 
 
 class SongsNumberStatisticsSerializer(DynamicFieldsModelSerializer):
