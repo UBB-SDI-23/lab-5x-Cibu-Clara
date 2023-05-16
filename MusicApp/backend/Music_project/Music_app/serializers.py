@@ -131,8 +131,13 @@ class ArtistViewsStatisticsSerializer(DynamicFieldsModelSerializer):
 class SongsNumberStatisticsSerializer(DynamicFieldsModelSerializer):
     """
     """
-    nr_performances = serializers.IntegerField(read_only=True)
+    song_name = serializers.CharField(max_length=100)
+    composer = serializers.CharField(max_length=100)
+    genre = serializers.CharField(max_length=100)
+    year_of_release = serializers.IntegerField()
+    no_of_performances = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Song
-        fields = ['song_name', 'nr_performances']
+        fields = ['song_name', 'composer', 'genre', 'year_of_release', 'no_of_performances']
+        depth = 1

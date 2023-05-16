@@ -5,6 +5,7 @@ import { AppHome } from "./components/AppHome";
 import { AppMenu } from "./components/AppMenu";
 import { ShowSongs } from "./components/songs/ShowSongs";
 import { SongDetails } from "./components/songs/SongDetails";
+import { SongStatistics } from "./components/songs/SongStatistics";
 import { DeleteSong } from "./components/songs/DeleteSong";
 import { AddSong } from "./components/songs/AddSong";
 import {EditSong} from "./components/songs/EditSong";
@@ -24,6 +25,7 @@ import {PerformanceDetails} from "./components/performances/PerformanceDetails";
 import {DeletePerformance} from "./components/performances/DeletePerformance";
 import {AddPerformance} from "./components/performances/AddPerformance";
 import {EditPerformance} from "./components/performances/EditPerformance";
+import {Statistics} from "./components/Statistics";
 
 function App() {
 	return (
@@ -56,6 +58,9 @@ function App() {
 					<Route path="/performances/:performanceId/edit" element={<EditPerformance />} />
 					<Route path="/performances/:performanceId/delete" element={<DeletePerformance />} />
 					<Route path="/performances/add" element={<AddPerformance />} />
+
+					<Route path="/statistics" element={<Statistics />} />
+					<Route path="/statistics/songs-ordered" element={<SongStatistics />} />
 				</Routes>
 			</Router>
 		</React.Fragment>

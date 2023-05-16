@@ -52,16 +52,6 @@ export const ShowSongs = () => {
         setPage(page - 1);
     }
 
-/*    useEffect(() => {
-        setLoading(true);
-        fetch(`${BACKEND_API_URL}/songs/`)
-            .then((response) => response.json())
-            .then((data) => {
-                setSongs(data);
-                setLoading(false);
-            });
-        }, [])*/
-
     const fetchSongs = async () => {
         setLoading(true);
         const response = await fetch(

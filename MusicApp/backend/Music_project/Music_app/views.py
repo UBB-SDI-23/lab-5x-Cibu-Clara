@@ -447,6 +447,7 @@ class ArtistViewsStatistics(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+'''
 class SongsNumberStatistics(APIView):
     @extend_schema(responses=SongsNumberStatisticsSerializer)
     def get(self, request):
@@ -457,3 +458,14 @@ class SongsNumberStatistics(APIView):
 
         serializer = SongsNumberStatisticsSerializer(statistics, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+'''
+
+
+class SongsOrderedByNoOfPerformances(generics.ListCreateAPIView):
+    serializer_class = SongsNumberStatisticsSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        queryset = Song.objects.annotate(no_of_performances=Count('performson__song_id')).order_by('no_of_performances')
+        print(queryset.explain())
+        return queryset
