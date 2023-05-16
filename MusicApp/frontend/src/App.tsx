@@ -61,8 +61,8 @@ function App() {
 					<Route path="/performances/add" element={<AddPerformance />} />
 
 					<Route path="/statistics" element={<Statistics />} />
-					<Route path="/statistics/songs-ordered-by-performances" element={<ArtistsStatistics />} />
-					<Route path="/statistics/artists-ordered-by-avg-views" element={<SongStatistics />} />
+					<Route path="/statistics/songs-ordered-by-performances" element={<SongStatistics />} />
+					<Route path="/statistics/artists-ordered-by-avg-views" element={<ArtistsStatistics />} />
 				</Routes>
 			</Router>
 		</React.Fragment>
