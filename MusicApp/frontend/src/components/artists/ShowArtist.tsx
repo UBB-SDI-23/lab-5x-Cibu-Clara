@@ -90,7 +90,7 @@ export const ShowArtists = () => {
 			{!loading && (
 				<IconButton component={Link} sx={{ mr:155 }} to={`/artists/add`}>
 					<Tooltip title="Add a new artist" arrow>
-						<AddIcon color="#C8BEEA" />
+						<AddIcon color="primary" />
 					</Tooltip>
 				</IconButton>
 			)}

@@ -89,7 +89,7 @@ export const ShowPerformances = () => {
 			{!loading && (
 				<IconButton component={Link} sx={{ mr:155 }} to={`/performances/add`}>
 					<Tooltip title="Add a new performance" arrow>
-						<AddIcon color="#C8BEEA" />
+						<AddIcon color="primary" />
 					</Tooltip>
 				</IconButton>
 			)}
