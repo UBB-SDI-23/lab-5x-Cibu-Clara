@@ -26,6 +26,7 @@ import {DeletePerformance} from "./components/performances/DeletePerformance";
 import {AddPerformance} from "./components/performances/AddPerformance";
 import {EditPerformance} from "./components/performances/EditPerformance";
 import {Statistics} from "./components/Statistics";
+import {ArtistsStatistics} from "./components/artists/ArtistsStatistics";
 
 function App() {
 	return (
@@ -60,7 +61,7 @@ function App() {
 					<Route path="/performances/add" element={<AddPerformance />} />
 
 					<Route path="/statistics" element={<Statistics />} />
-					<Route path="/statistics/songs-ordered-by-performances" element={<SongStatistics />} />
+					<Route path="/statistics/songs-ordered-by-performances" element={<ArtistsStatistics />} />
 					<Route path="/statistics/artists-ordered-by-avg-views" element={<SongStatistics />} />
 				</Routes>
 			</Router>
