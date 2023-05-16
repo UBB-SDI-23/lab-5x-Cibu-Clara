@@ -115,7 +115,7 @@ export const ShowSongs = () => {
 			{!loading && (
 				<IconButton component={Link} sx={{ mr:155 }} to={`/songs/add`}>
 					<Tooltip title="Add a new song" arrow>
-						<AddIcon color="primary" />
+						<AddIcon color="#C8BEEA" />
 					</Tooltip>
 				</IconButton>
 			)}

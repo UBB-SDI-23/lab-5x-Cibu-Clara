@@ -152,7 +152,7 @@ export const AddPerformance = () => {
 							sx={{ mb: 2 }}
 							onChange={(event) => setPerformance({ ...performance, duration: event.target.value })}
 						/>
-						<Button type="submit">Add Performance</Button>
+						<Button type="submit" sx={{ color: "#72648B" }}>Add Performance</Button>
 					</form>
 				</CardContent>
 			</Card>

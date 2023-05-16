@@ -124,7 +124,7 @@ export const AddAlbum = () => {
 								}
 							}}
 						/>
-						<Button type="submit">Add Album</Button>
+						<Button type="submit" sx={{ color: "#72648B" }}>Add Album</Button>
 					</form>
 				</CardContent>
 			</Card>

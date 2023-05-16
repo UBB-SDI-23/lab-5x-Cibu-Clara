@@ -70,10 +70,10 @@ export const AddArtist = () => {
 							label="Email"
 							variant="outlined"
 							fullWidth
-							sx={{ mb: 2 }}
+							sx={{ mb: 2}}
 							onChange={(event) => setArtist({ ...artist, email: event.target.value })}
 						/>
-						<Button type="submit">Add Artist</Button>
+						<Button type="submit" sx={{ color: "#72648B" }}>Add Artist</Button>
 					</form>
 				</CardContent>
 			</Card>

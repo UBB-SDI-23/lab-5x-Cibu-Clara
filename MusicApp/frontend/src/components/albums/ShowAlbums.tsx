@@ -90,7 +90,7 @@ export const ShowAlbums = () => {
 			{!loading && (
 				<IconButton component={Link} sx={{ mr:155 }} to={`/albums/add`}>
 					<Tooltip title="Add a new album" arrow>
-						<AddIcon color="primary" />
+						<AddIcon color="#C8BEEA" />
 					</Tooltip>
 				</IconButton>
 			)}

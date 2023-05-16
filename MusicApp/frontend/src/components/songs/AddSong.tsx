@@ -73,7 +73,7 @@ export const AddSong = () => {
 							sx={{ mb: 2 }}
 							onChange={(event) => setSong({ ...song, year_of_release: +event.target.value })}
 						/>
-						<Button type="submit">Add Song</Button>
+						<Button type="submit" sx={{ color: "#72648B" }}>Add Song</Button>
 					</form>
 				</CardContent>
 			</Card>

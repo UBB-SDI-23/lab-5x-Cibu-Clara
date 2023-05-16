@@ -50,16 +50,6 @@ export const ShowArtists = () => {
         setPage(page - 1);
     }
 
-/*    useEffect(() => {
-        setLoading(true);
-        fetch(`${BACKEND_API_URL}/songs/`)
-            .then((response) => response.json())
-            .then((data) => {
-                setSongs(data);
-                setLoading(false);
-            });
-        }, [])*/
-
     const fetchArtists = async () => {
         setLoading(true);
         const response = await fetch(
@@ -100,7 +90,7 @@ export const ShowArtists = () => {
 			{!loading && (
 				<IconButton component={Link} sx={{ mr:155 }} to={`/artists/add`}>
 					<Tooltip title="Add a new artist" arrow>
-						<AddIcon color="primary" />
+						<AddIcon color="#C8BEEA" />
 					</Tooltip>
 				</IconButton>
 			)}
