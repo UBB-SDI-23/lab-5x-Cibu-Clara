@@ -50,7 +50,7 @@ class ArtistSerializer(DynamicFieldsModelSerializer):
             raise serializers.ValidationError("This artist name is already in use!")
         return value
 
-    def validate_artist_email(self, value):
+    def validate_email(self, value):
         existing_emails = Artist.objects.filter(email=value)
 
         if self.instance:
@@ -74,13 +74,13 @@ class SongSerializer(DynamicFieldsModelSerializer):
     year_of_release = serializers.IntegerField()
     artists = ArtistSerializer(many=True, read_only=True)
 
-    def validate_song_genre(self, value):
+    def validate_genre(self, value):
         if value not in ("pop", "electronic", "dance", "dnb", "soul", "reggae", "classical", "hip hop", "blues", "rock",
                          "jazz", "minimal", "house", "rap"):
             raise serializers.ValidationError("The song genre is not a music genre!")
         return value
 
-    def validate_song_release_year(self, value):
+    def validate_year_of_release(self, value):
         today = datetime.datetime.now()
         year = today.year
         if value > year or value < 1800:
@@ -104,12 +104,12 @@ class AlbumSerializer(DynamicFieldsModelSerializer):
     main_artist = ArtistSerializer(read_only=True)
     main_artist_id = serializers.IntegerField(write_only=True)
 
-    def validate_album_no_tracks(self, value):
+    def validate_nr_of_tracks(self, value):
         if value <= 0:
             raise serializers.ValidationError("No. of tracks must be greater than zero!")
         return value
 
-    def validate_album_release_year(self, value):
+    def validate_year_of_release(self, value):
         today = datetime.datetime.now()
         year = today.year
         if value > year or value < 1800:
@@ -129,12 +129,12 @@ class AlbumSerializerID(DynamicFieldsModelSerializer):
     year_of_release = serializers.IntegerField()
     main_artist = ArtistSerializer()
 
-    def validate_album_no_tracks(self, value):
+    def validate_nr_of_tracks(self, value):
         if value <= 0:
             raise serializers.ValidationError("No. of tracks must be greater than zero!")
         return value
 
-    def validate_album_release_year(self, value):
+    def validate_year_of_release(self, value):
         today = datetime.datetime.now()
         year = today.year
         if value > year or value < 1800:
@@ -157,13 +157,13 @@ class PerformsOnSerializer(DynamicFieldsModelSerializer):
     song_id = serializers.IntegerField(write_only=True)
     artist_id = serializers.IntegerField(write_only=True)
 
-    def validate_performson_duration(self, value):
+    def validate_duration(self, value):
         pattern = r'^\d{2}:\d{2}$'
         if not re.match(pattern, value):
             raise serializers.ValidationError("Invalid duration format! Expected format: MM:SS")
         return value
 
-    def validate_performson_no_views(self, value):
+    def validate_nr_of_views(self, value):
         if value < 0:
             raise serializers.ValidationError("No. of views must be greater than or equal to zero!")
         return value
