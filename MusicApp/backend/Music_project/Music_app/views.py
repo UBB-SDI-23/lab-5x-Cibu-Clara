@@ -134,7 +134,7 @@ class ArtistListCreateView(generics.ListCreateAPIView):
     pagination_class = CustomPagination
 
     def get_queryset(self):
-        queryset = Artist.objects.all().annotate(nr_albums=Count('album__main_artist_id')).order_by('id')
+        queryset = Artist.objects.all().annotate(nr_albums=Count('albums__main_artist_id')).order_by('id')
         print(queryset.explain())
         return queryset
 
