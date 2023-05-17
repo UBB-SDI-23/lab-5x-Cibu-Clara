@@ -41,15 +41,6 @@ class ArtistSerializer(DynamicFieldsModelSerializer):
     email = serializers.EmailField(max_length=100)
     songs = Song()
 
-    def validate_artist_name(self, value):
-        existing_artists = Artist.objects.filter(artist_name=value)
-
-        if self.instance:
-            existing_artists = existing_artists.exclude(pk=self.instance.pk)
-        if existing_artists.exists():
-            raise serializers.ValidationError("This artist name is already in use!")
-        return value
-
     def validate_email(self, value):
         existing_emails = Artist.objects.filter(email=value)
 

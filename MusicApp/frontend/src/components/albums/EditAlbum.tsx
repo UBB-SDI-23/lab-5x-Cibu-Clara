@@ -15,6 +15,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {debounce} from 'lodash';
 import axios from "axios";
 import {Album} from "../../models/Album";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const EditAlbum = () => {
 	const navigate = useNavigate();
@@ -73,9 +75,22 @@ export const EditAlbum = () => {
 	const editAlbum = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();
 		try {
-			await axios.patch(`${BACKEND_API_URL}/albums/${albumId}/`, album);
-			navigate("/albums");
+			if(album.nr_of_tracks <= 0)
+			{
+				throw new Error("No. of tracks must be greater than zero!");
+			}
+			if(album.year_of_release < 1800 || album.year_of_release > 2023)
+			{
+				throw new Error("Not a valid year!");
+			}
+			const response = await axios.patch(`${BACKEND_API_URL}/albums/${albumId}/`, album);
+			if (response.status < 200 || response.status >= 300) {
+				throw new Error("An error occurred while adding the item!");
+			  } else {
+				navigate("/albums");
+			  }
 		} catch (error) {
+			toast.error((error as { message: string }).message);
 			console.log(error);
 		}
 	};
@@ -143,6 +158,7 @@ export const EditAlbum = () => {
 								}
 							}}
 						/>
+						<ToastContainer />
 						<Button type="submit">Update Album</Button>
 					</form>
 				</CardContent>

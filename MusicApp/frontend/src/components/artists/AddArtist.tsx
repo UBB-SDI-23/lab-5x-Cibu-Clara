@@ -12,6 +12,8 @@ import { BACKEND_API_URL } from "../../constants";
 import { Artist } from "../../models/Artist";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const AddArtist = () => {
 	const navigate = useNavigate();
@@ -26,9 +28,17 @@ export const AddArtist = () => {
 	const addArtist = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();
 		try {
-			await axios.post(`${BACKEND_API_URL}/artists/`, artist);
-			navigate("/artists");
-		} catch (error) {
+			const response = await axios.post(`${BACKEND_API_URL}/artists/`, artist);
+			if (response.status < 200 || response.status >= 300)
+			{
+				throw new Error("This email is already in use!");
+			}
+			else{
+				navigate("/artists");
+			}
+
+		} catch (error: any) {
+			toast.error(error.response.data.email[0]);
 			console.log(error);
 		}
 	};
@@ -73,6 +83,7 @@ export const AddArtist = () => {
 							sx={{ mb: 2}}
 							onChange={(event) => setArtist({ ...artist, email: event.target.value })}
 						/>
+						<ToastContainer/>
 						<Button type="submit" sx={{ color: "#72648B" }}>Add Artist</Button>
 					</form>
 				</CardContent>
