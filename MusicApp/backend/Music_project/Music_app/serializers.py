@@ -39,6 +39,7 @@ class ArtistSerializer(DynamicFieldsModelSerializer):
     real_name = serializers.CharField(max_length=100)
     country = serializers.CharField(max_length=100)
     email = serializers.EmailField(max_length=100)
+    nr_albums = serializers.IntegerField(read_only=True)
     songs = Song()
 
     def validate_email(self, value):
@@ -52,7 +53,7 @@ class ArtistSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = Artist
-        fields = ('id', 'artist_name', 'real_name', 'country', 'email', 'songs')
+        fields = ('id', 'artist_name', 'real_name', 'country', 'email', 'nr_albums', 'songs')
         ordering = ['id']
 
 
