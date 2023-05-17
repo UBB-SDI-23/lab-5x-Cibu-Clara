@@ -51,7 +51,7 @@ if __name__ == '__main__':
                         for j in range(i, i+1000):
                                 song_name = replace_quotes(fake.text(max_nb_chars=25))
                                 composer = replace_quotes(fake.name())
-                                genre = fake.random_element(elements=("pop", "electronic", "dance", "dnb", "soul", "reggae", "classical", "hip hop", "blues", "rock", "jazz"))
+                                genre = fake.random_element(elements=("pop", "electronic", "dance", "dnb", "soul", "reggae", "classical", "hip hop", "blues", "rock", "jazz", "minimal", "house", "rap"))
                                 year_of_release = fake.random_int(min=1900, max=2023)
                                 songs.append(f"('{song_name}', '{composer}', '{genre}', '{year_of_release}')")
                         data = f"""INSERT INTO "Music_app_song" (song_name, composer, genre, year_of_release) VALUES {','.join(songs)};"""
@@ -69,7 +69,9 @@ if __name__ == '__main__':
                         for j in range(1000):
                                 song_id = fake.random_int(min=1, max=1000000)
                                 nr_of_views = fake.random_int(min=0, max=70000000)
-                                duration = fake.pystr_format(string_format='##:##')
+                                minutes = fake.random_int(min=0, max=10)
+                                seconds = fake.random_int(min=0, max=59)
+                                duration = f"{minutes:02d}:{seconds:02d}"
                                 performances.append(f"('{nr_of_views}', '{duration}', '{artist_id}', '{song_id}')")
                         data = f"""INSERT INTO "Music_app_performson" (nr_of_views, duration, artist_id, song_id) VALUES {','.join(performances)};"""
                         file.write(data + "\n")

@@ -1,4 +1,3 @@
-import datetime
 from django.db import models
 
 
@@ -6,8 +5,6 @@ class Song(models.Model):
     song_name = models.CharField(max_length=100)
     composer = models.CharField(max_length=100)
     genre = models.CharField(max_length=100)
-    today = datetime.datetime.now()
-    year = today.year
     year_of_release = models.IntegerField()
     artists = models.ManyToManyField('Artist', through='PerformsOn')
 
@@ -36,8 +33,6 @@ class Album(models.Model):
     album_title = models.CharField(max_length=100)
     nr_of_tracks = models.IntegerField()
     label = models.CharField(max_length=100)
-    today = datetime.datetime.now()
-    year = today.year
     year_of_release = models.PositiveSmallIntegerField()
     main_artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='albums')
 

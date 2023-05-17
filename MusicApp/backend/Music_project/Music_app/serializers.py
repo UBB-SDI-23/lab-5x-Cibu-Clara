@@ -1,5 +1,7 @@
+import datetime
 from rest_framework import serializers
 from .models import *
+import re
 
 
 class DynamicFieldsModelSerializer(serializers.ModelSerializer):
@@ -39,6 +41,24 @@ class ArtistSerializer(DynamicFieldsModelSerializer):
     email = serializers.EmailField(max_length=100)
     songs = Song()
 
+    def validate_artist_name(self, value):
+        existing_artists = Artist.objects.filter(artist_name=value)
+
+        if self.instance:
+            existing_artists = existing_artists.exclude(pk=self.instance.pk)
+        if existing_artists.exists():
+            raise serializers.ValidationError("This artist name is already in use!")
+        return value
+
+    def validate_artist_email(self, value):
+        existing_emails = Artist.objects.filter(email=value)
+
+        if self.instance:
+            existing_emails = existing_emails.exclude(pk=self.instance.pk)
+        if existing_emails.exists():
+            raise serializers.ValidationError("This email address is already in use!")
+        return value
+
     class Meta:
         model = Artist
         fields = ('id', 'artist_name', 'real_name', 'country', 'email', 'songs')
@@ -53,6 +73,19 @@ class SongSerializer(DynamicFieldsModelSerializer):
     genre = serializers.CharField(max_length=100)
     year_of_release = serializers.IntegerField()
     artists = ArtistSerializer(many=True, read_only=True)
+
+    def validate_song_genre(self, value):
+        if value not in ("pop", "electronic", "dance", "dnb", "soul", "reggae", "classical", "hip hop", "blues", "rock",
+                         "jazz", "minimal", "house", "rap"):
+            raise serializers.ValidationError("The song genre is not a music genre!")
+        return value
+
+    def validate_song_release_year(self, value):
+        today = datetime.datetime.now()
+        year = today.year
+        if value > year or value < 1800:
+            raise serializers.ValidationError("Not a valid year!")
+        return value
 
     class Meta:
         model = Song
@@ -71,6 +104,18 @@ class AlbumSerializer(DynamicFieldsModelSerializer):
     main_artist = ArtistSerializer(read_only=True)
     main_artist_id = serializers.IntegerField(write_only=True)
 
+    def validate_album_no_tracks(self, value):
+        if value <= 0:
+            raise serializers.ValidationError("No. of tracks must be greater than zero!")
+        return value
+
+    def validate_album_release_year(self, value):
+        today = datetime.datetime.now()
+        year = today.year
+        if value > year or value < 1800:
+            raise serializers.ValidationError("Not a valid year!")
+        return value
+
     class Meta:
         model = Album
         fields = "__all__"
@@ -83,6 +128,18 @@ class AlbumSerializerID(DynamicFieldsModelSerializer):
     label = serializers.CharField(max_length=100)
     year_of_release = serializers.IntegerField()
     main_artist = ArtistSerializer()
+
+    def validate_album_no_tracks(self, value):
+        if value <= 0:
+            raise serializers.ValidationError("No. of tracks must be greater than zero!")
+        return value
+
+    def validate_album_release_year(self, value):
+        today = datetime.datetime.now()
+        year = today.year
+        if value > year or value < 1800:
+            raise serializers.ValidationError("Not a valid year!")
+        return value
 
     class Meta:
         model = Album
@@ -99,6 +156,17 @@ class PerformsOnSerializer(DynamicFieldsModelSerializer):
     duration = serializers.CharField(max_length=10)
     song_id = serializers.IntegerField(write_only=True)
     artist_id = serializers.IntegerField(write_only=True)
+
+    def validate_performson_duration(self, value):
+        pattern = r'^\d{2}:\d{2}$'
+        if not re.match(pattern, value):
+            raise serializers.ValidationError("Invalid duration format! Expected format: MM:SS")
+        return value
+
+    def validate_performson_no_views(self, value):
+        if value < 0:
+            raise serializers.ValidationError("No. of views must be greater than or equal to zero!")
+        return value
 
     class Meta:
         model = PerformsOn
