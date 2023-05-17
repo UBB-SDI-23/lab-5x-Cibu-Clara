@@ -65,12 +65,6 @@ class SongSerializer(DynamicFieldsModelSerializer):
     year_of_release = serializers.IntegerField()
     artists = ArtistSerializer(many=True, read_only=True)
 
-    def validate_genre(self, value):
-        if value not in ("pop", "electronic", "dance", "dnb", "soul", "reggae", "classical", "hip hop", "blues", "rock",
-                         "jazz", "minimal", "house", "rap"):
-            raise serializers.ValidationError("The song genre is not a music genre!")
-        return value
-
     def validate_year_of_release(self, value):
         today = datetime.datetime.now()
         year = today.year

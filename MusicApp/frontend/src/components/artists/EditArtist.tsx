@@ -6,6 +6,7 @@ import {BACKEND_API_URL} from "../../constants";
 import {Artist} from "../../models/Artist";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
+import {toast, ToastContainer} from "react-toastify";
 
 export const EditArtist = () => {
     const {artistId} = useParams();
@@ -37,9 +38,16 @@ export const EditArtist = () => {
     const editArtist = async (event: { preventDefault: () => void }) => {
             event.preventDefault();
             try {
-                await axios.patch(`${BACKEND_API_URL}/artists/${artistId}/`, artist);
-                navigate("/artists");
-            } catch (error) {
+                const response = await axios.patch(`${BACKEND_API_URL}/artists/${artistId}/`, artist);
+                if (response.status < 200 || response.status >= 300)
+				{
+					throw new Error("This email is already in use!");
+				}
+				else{
+					navigate("/artists");
+				}
+            } catch (error: any) {
+				toast.error(error.response.data.email[0]);
                 console.log(error);
             }
         }
@@ -85,6 +93,7 @@ export const EditArtist = () => {
 							sx={{ mb: 2 }}
 							onChange={(event) => setArtist({ ...artist, email: event.target.value })}
 						/>
+						<ToastContainer/>
                         <Button type="submit">Update Artist</Button>
                     </form>
                 </CardContent>

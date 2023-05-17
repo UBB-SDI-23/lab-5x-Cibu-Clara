@@ -12,6 +12,8 @@ import { BACKEND_API_URL } from "../../constants";
 import { Song } from "../../models/Song";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
+import {toast, ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const AddSong = () => {
 	const navigate = useNavigate();
@@ -26,9 +28,18 @@ export const AddSong = () => {
 	const addSong = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();
 		try {
-			await axios.post(`${BACKEND_API_URL}/songs/`, song);
-			navigate("/songs");
+			if(song.year_of_release < 1800 || song.year_of_release > 2023)
+			{
+				throw new Error("Not a valid year!");
+			}
+			const response = await axios.post(`${BACKEND_API_URL}/songs/`, song);
+			if (response.status < 200 || response.status >= 300) {
+				throw new Error("An error occurred while adding the item!");
+			  } else {
+				navigate("/songs");
+			  }
 		} catch (error) {
+			toast.error((error as { message: string }).message);
 			console.log(error);
 		}
 	};
@@ -73,6 +84,7 @@ export const AddSong = () => {
 							sx={{ mb: 2 }}
 							onChange={(event) => setSong({ ...song, year_of_release: +event.target.value })}
 						/>
+						<ToastContainer/>
 						<Button type="submit" sx={{ color: "#72648B" }}>Add Song</Button>
 					</form>
 				</CardContent>

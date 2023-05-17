@@ -85,7 +85,7 @@ export const EditAlbum = () => {
 			}
 			const response = await axios.patch(`${BACKEND_API_URL}/albums/${albumId}/`, album);
 			if (response.status < 200 || response.status >= 300) {
-				throw new Error("An error occurred while adding the item!");
+				throw new Error("An error occurred while updating the item!");
 			  } else {
 				navigate("/albums");
 			  }

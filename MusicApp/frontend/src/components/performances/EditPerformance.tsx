@@ -16,6 +16,8 @@ import {debounce} from 'lodash';
 import axios from "axios";
 import {PerformsOn} from "../../models/PerformsOn";
 import {Song} from "../../models/Song";
+import {toast, ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const EditPerformance = () => {
 	const navigate = useNavigate();
@@ -93,9 +95,22 @@ export const EditPerformance = () => {
 	const editPerformance = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();
 		try {
-			await axios.patch(`${BACKEND_API_URL}/performances/${performanceId}/`, performance);
-			navigate("/performances");
+			if(performance.nr_of_views < 0)
+			{
+				throw new Error("No. of views must be greater than or equal to zero!");
+			}
+			const pattern = /^\d{2}:\d{2}$/;
+			if (!pattern.test(performance.duration)) {
+  				throw new Error("Invalid duration format! Expected format: MM:SS");
+			}
+			const response = await axios.patch(`${BACKEND_API_URL}/performances/${performanceId}/`, performance);
+			if (response.status < 200 || response.status >= 300) {
+				throw new Error("An error occurred while updating the item!");
+			  } else {
+				navigate("/performances");
+			  }
 		} catch (error) {
+			toast.error((error as { message: string }).message);
 			console.log(error);
 		}
 	};
@@ -170,6 +185,7 @@ export const EditPerformance = () => {
 							sx={{ mb: 2 }}
 							onChange={(event) => setPerformance({ ...performance, duration: event.target.value })}
 						/>
+						<ToastContainer/>
 						<Button type="submit">Update Performance</Button>
 					</form>
 				</CardContent>
