@@ -7,7 +7,6 @@ def replace_quotes(text):
 if __name__ == '__main__':
 
         fake = Faker()
-        existing_names = set()
         existing_emails = set()
         fake.add_provider(replace_quotes)
         batch_size = 1000
@@ -23,9 +22,6 @@ if __name__ == '__main__':
                         artists = []
                         for j in range(i, i+1000):
                                 artist_name = replace_quotes(fake.name())
-                                while artist_name in existing_names:
-                                        artist_name = replace_quotes(fake.name())  # Generate a new name if it's not unique
-                                existing_names.add(artist_name)
                                 real_name = replace_quotes(fake.name())
                                 country = replace_quotes(fake.country())
                                 email = replace_quotes(fake.email())

@@ -105,6 +105,7 @@ export const ShowArtists = () => {
 								<TableCell align="right">Real name</TableCell>
 								<TableCell align="right">Country</TableCell>
 								<TableCell align="right">Email</TableCell>
+                                <TableCell align="right">Number of albums</TableCell>
 								<TableCell align="center">Operations</TableCell>
 							</TableRow>
 						</TableHead>
@@ -122,6 +123,7 @@ export const ShowArtists = () => {
 									<TableCell align="right">{artist.real_name}</TableCell>
 									<TableCell align="right">{artist.country}</TableCell>
 									<TableCell align="right">{artist.email}</TableCell>
+                                    <TableCell align="right">{artist.nr_albums}</TableCell>
 									<TableCell align="right">
 										<IconButton
 											component={Link}

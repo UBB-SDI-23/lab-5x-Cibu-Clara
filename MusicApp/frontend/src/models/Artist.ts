@@ -7,6 +7,7 @@ export interface Artist {
     real_name: string;
     country: string;
     email: string;
+    nr_albums: number;
     songs?: Song[];
     albums? : Album[];
 }
