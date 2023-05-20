@@ -1,11 +1,19 @@
+import uuid
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.request import Request
 from rest_framework import status
 from rest_framework import generics
 from .pagination import CustomPagination
 from .serializers import *
 from django.db.models import Avg, Count
 from drf_spectacular.utils import extend_schema
+from .models import UserProfile
+from datetime import timedelta
+from typing import Any
+from django.contrib.auth.models import User
+from django.utils import timezone
+from rest_framework_simplejwt.views import TokenViewBase
 
 
 '''
@@ -481,3 +489,77 @@ class SongsOrderedByNoOfPerformances(generics.ListCreateAPIView):
         queryset = Song.objects.annotate(no_of_performances=Count('performson__song_id')).order_by('no_of_performances')
         print(queryset.explain())
         return queryset
+
+
+class UserInfo(generics.RetrieveAPIView):
+    queryset = UserProfile.objects.all().annotate(
+        songs_count=Count("user__song", distinct=True),
+        artists_count=Count("user__artist", distinct=True),
+        albums_count=Count("user__album", distinct=True),
+        performances_count=Count("user__performson", distinct=True),
+    )
+
+    serializer_class = UserProfileDetailSerializer
+    lookup_field = "id"
+
+
+class UserRegistrationView(generics.CreateAPIView):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+
+    def create(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        activation_expiry_date = str(timezone.now() + timedelta(minutes=10))
+        activation_code = str(uuid.uuid4())
+        data = request.data.copy()
+        data["activation_code"] = activation_code
+        data["activation_expiry_date"] = activation_expiry_date
+        data["active"] = False
+
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            {"activation_code": activation_code}, status=status.HTTP_201_CREATED, headers=headers,)
+
+
+class UserActivationView(generics.CreateAPIView):
+    serializer_class = UserProfileSerializer
+    queryset = UserProfile.objects.all()
+
+    def update(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        activation_code = request.data.get("activation_code")
+        try:
+            user_profile: UserProfile = UserProfile.objects.get(activation_code=activation_code)
+        except UserProfile.DoesNotExist:
+            return Response(
+                {"error": "Activation code not found"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        user = User.objects.get(username=user_profile.user.username)
+
+        if user_profile.activation_expiry_date < timezone.now():
+            user_profile.delete()
+            user.delete()
+            return Response(
+                {"error": "Activation code expired"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if user_profile.active:
+            return Response(
+                {"success": "Account already active"}, status=status.HTTP_200_OK
+            )
+
+        user.is_active = True
+        user_profile.active = True
+        user_profile.save()
+        user.save()
+        return Response(
+            {"success": "User profile activated"}, status=status.HTTP_200_OK
+        )
+
+
+class LoginView(TokenViewBase):
+    serializer_class = MyTokenObtainPairSerializer
