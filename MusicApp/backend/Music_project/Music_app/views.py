@@ -523,7 +523,7 @@ class UserRegistrationView(generics.CreateAPIView):
             {"activation_code": activation_code}, status=status.HTTP_201_CREATED, headers=headers,)
 
 
-class UserActivationView(generics.CreateAPIView):
+class UserActivationView(generics.UpdateAPIView):
     serializer_class = UserProfileSerializer
     queryset = UserProfile.objects.all()
 
