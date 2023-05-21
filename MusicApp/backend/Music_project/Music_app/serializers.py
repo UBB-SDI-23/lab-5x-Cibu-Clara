@@ -7,6 +7,7 @@ from rest_framework_simplejwt.serializers import RefreshToken, TokenObtainPairSe
 from collections import OrderedDict
 from typing import Any
 
+
 class DynamicFieldsModelSerializer(serializers.ModelSerializer):
     """
     A ModelSerializer that takes an additional `fields` argument that
