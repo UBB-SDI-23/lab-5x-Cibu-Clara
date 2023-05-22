@@ -1,5 +1,5 @@
 import { Button, Card, CardContent, Container, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../../App.css';
 import axios from 'axios';
 import { BACKEND_API_URL } from '../../constants';

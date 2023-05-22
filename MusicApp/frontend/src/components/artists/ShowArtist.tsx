@@ -130,8 +130,8 @@ export const ShowArtists = () => {
 									<TableCell align="right">{artist.email}</TableCell>
                                     <TableCell align="right">{artist.nr_albums}</TableCell>
                                      <TableCell component="th" scope="row">
-                                    <Link to={`/profile/${artist.added_by.id}`}>
-                                        {artist.added_by.username}
+                                    <Link to={`/profile/${artist.added_by?.id}`}>
+                                        {artist.added_by?.username}
                                     </Link>
                                     </TableCell>
 									<TableCell align="right">
