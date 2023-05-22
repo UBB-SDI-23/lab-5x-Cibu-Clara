@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent, Container, TextField } from '@mui/material';
 import { FullUser } from '../models/FullUser';
 import { useParams } from 'react-router-dom';
