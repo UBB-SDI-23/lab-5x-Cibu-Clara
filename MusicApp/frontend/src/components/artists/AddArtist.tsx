@@ -13,16 +13,17 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {Artist} from "../../models/Artist";
 
 export const AddArtist = () => {
 	const navigate = useNavigate();
 
-	const [artist, setArtist] = useState({
+	const [artist, setArtist] = useState<Artist>({
 		artist_name: "",
 		real_name: "",
         country:"",
         email:"",
-		added_by: 1
+		added_by_id: 1
 	});
 
 	const addArtist = async (event: { preventDefault: () => void }) => {
@@ -30,8 +31,7 @@ export const AddArtist = () => {
 		try {
 			const id = localStorage.getItem('user_id');
 			if(id){
-				artist.added_by = parseInt(id);
-				console.log(artist.added_by);
+				artist.added_by_id = parseInt(id);
 			}
 			const response = await axios.post(`${BACKEND_API_URL}/artists/`, artist);
 			if (response.status < 200 || response.status >= 300)

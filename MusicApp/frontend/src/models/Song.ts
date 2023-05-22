@@ -9,4 +9,5 @@ export interface Song {
     year_of_release: number;
     artists?: Artist[];
     added_by?: User;
+    added_by_id?: number;
 }

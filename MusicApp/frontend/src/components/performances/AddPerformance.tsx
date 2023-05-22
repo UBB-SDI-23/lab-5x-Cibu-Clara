@@ -17,16 +17,17 @@ import axios from "axios";
 import {Song} from "../../models/Song";
 import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {PerformsOn} from "../../models/PerformsOn";
 
 export const AddPerformance = () => {
 	const navigate = useNavigate();
 
-	const [performance, setPerformance] = useState({
+	const [performance, setPerformance] = useState<PerformsOn>({
 		artist_id: 1,
 		song_id: 1,
 		nr_of_views: 0,
 		duration: "00:00",
-		added_by: 1
+		added_by_id: 1
 	});
 
 	const [page] = useState(1);
@@ -87,7 +88,7 @@ export const AddPerformance = () => {
 			}
 			const id = localStorage.getItem('user_id');
 			if(id){
-				performance.added_by = parseInt(id);
+				performance.added_by_id = parseInt(id);
 			}
 			const response = await axios.post(`${BACKEND_API_URL}/performances/`, performance);
 			if (response.status < 200 || response.status >= 300) {

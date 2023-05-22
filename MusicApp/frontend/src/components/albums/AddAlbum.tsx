@@ -14,19 +14,20 @@ import { Artist } from "../../models/Artist";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {debounce} from 'lodash';
 import axios from "axios";
+import {Album} from "../../models/Album";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const AddAlbum = () => {
 	const navigate = useNavigate();
 
-	const [album, setAlbum] = useState({
+	const [album, setAlbum] = useState<Album>({
 		album_title: "",
 		nr_of_tracks: 1,
 		label: "",
 		year_of_release: 2000,
 		main_artist_id: 1,
-        added_by: 1
+        added_by_id: 1
 	});
 
 	const [page] = useState(1);
@@ -35,7 +36,7 @@ export const AddAlbum = () => {
 
 	const fetchSuggestions = async (query: string) => {
 		try {
-			const url = `${BACKEND_API_URL}/artists/order-by-name/${query}/?page=${page}&page_size=${pageSize}`;
+			let url = `${BACKEND_API_URL}/artists/order-by-name/${query}/?page=${page}&page_size=${pageSize}`;
 			const response = await fetch(url);
 			const { results } = await response.json();
 			setArtists(results);
@@ -66,14 +67,14 @@ export const AddAlbum = () => {
 			}
             const id = localStorage.getItem('user_id');
 			if(id){
-				album.added_by = parseInt(id);
+				album.added_by_id = parseInt(id);
 			}
 			const response = await axios.post(`${BACKEND_API_URL}/albums/`, album);
 			if (response.status < 200 || response.status >= 300) {
 				throw new Error("An error occurred while adding the item!");
-			} else {
+			  } else {
 				navigate("/albums");
-			}
+			  }
 		} catch (error) {
 			toast.error((error as { message: string }).message);
 			console.log(error);
