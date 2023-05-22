@@ -10,5 +10,5 @@ export interface PerformsOn {
     artist_id?: number;
     nr_of_views: number;
     duration: string;
-    added_by: User;
+    added_by?: User;
 }

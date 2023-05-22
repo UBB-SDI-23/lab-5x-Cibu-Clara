@@ -11,5 +11,5 @@ export interface Artist {
     nr_albums?: number;
     songs?: Song[];
     albums? : Album[];
-    added_by: User;
+    added_by?: User;
 }

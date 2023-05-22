@@ -8,5 +8,5 @@ export interface Song {
     genre: string;
     year_of_release: number;
     artists?: Artist[];
-    added_by: User;
+    added_by?: User;
 }
