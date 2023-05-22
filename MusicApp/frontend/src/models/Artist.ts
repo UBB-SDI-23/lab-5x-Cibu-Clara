@@ -1,5 +1,6 @@
 import {Song} from "./Song";
 import {Album} from "./Album";
+import { User } from "./User";
 
 export interface Artist {
     id?: number;
@@ -10,4 +11,5 @@ export interface Artist {
     nr_albums?: number;
     songs?: Song[];
     albums? : Album[];
+    added_by: User;
 }

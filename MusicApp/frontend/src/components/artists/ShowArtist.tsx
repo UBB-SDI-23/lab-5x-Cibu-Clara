@@ -26,7 +26,7 @@ export const ShowArtists = () => {
     const [artists, setArtists] = useState<Artist[]>([]);
     const [order, setOrder] = useState("asc");
     const [page, setPage] = useState(1);
-    const [pageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(10);
     const [totalRows, setTotalRows] = useState(0);
     const [isLastPage, setIsLastPage] = useState(false);
 
@@ -52,8 +52,12 @@ export const ShowArtists = () => {
 
     const fetchArtists = async () => {
         setLoading(true);
+        const stringUser = localStorage.getItem("user");
+        const user = JSON.parse(stringUser!);
+        const new_page_size = user?.page_size || 10;
+        setPageSize(new_page_size);
         const response = await fetch(
-          `${BACKEND_API_URL}/artists/?page=${page}&page_size=${pageSize}`
+          `${BACKEND_API_URL}/artists/?page=${page}&page_size=${new_page_size}`
         );
         const { count, next, results } = await response.json();
         setArtists(results);
@@ -106,6 +110,7 @@ export const ShowArtists = () => {
 								<TableCell align="right">Country</TableCell>
 								<TableCell align="right">Email</TableCell>
                                 <TableCell align="right">Number of albums</TableCell>
+                                <TableCell align="center">Added by</TableCell>
 								<TableCell align="center">Operations</TableCell>
 							</TableRow>
 						</TableHead>
@@ -124,6 +129,11 @@ export const ShowArtists = () => {
 									<TableCell align="right">{artist.country}</TableCell>
 									<TableCell align="right">{artist.email}</TableCell>
                                     <TableCell align="right">{artist.nr_albums}</TableCell>
+                                     <TableCell component="th" scope="row">
+                                    <Link to={`/profile/${artist.added_by.id}`}>
+                                        {artist.added_by.username}
+                                    </Link>
+                                    </TableCell>
 									<TableCell align="right">
 										<IconButton
 											component={Link}
@@ -154,8 +164,7 @@ export const ShowArtists = () => {
                         setPage={setCurrentPage}
                         goToNextPage={goToNextPage}
                         goToPrevPage={goToPrevPage}
-                />
-			  </>
+                /></>
         )
         }
     </Container>

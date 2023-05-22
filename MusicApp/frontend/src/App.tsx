@@ -27,6 +27,11 @@ import {AddPerformance} from "./components/performances/AddPerformance";
 import {EditPerformance} from "./components/performances/EditPerformance";
 import {Statistics} from "./components/Statistics";
 import {ArtistsStatistics} from "./components/artists/ArtistsStatistics";
+import { RegistrationForm } from "./components/auth/Register";
+import { ActivateAccount } from "./components/auth/Activate";
+import { LoginForm } from "./components/auth/Login";
+import { LogoutFrom } from "./components/auth/Logout";
+import { UserProfile } from "./components/Profile";
 
 function App() {
 	return (
@@ -63,6 +68,12 @@ function App() {
 					<Route path="/statistics" element={<Statistics />} />
 					<Route path="/statistics/songs-ordered-by-performances" element={<SongStatistics />} />
 					<Route path="/statistics/artists-ordered-by-avg-views" element={<ArtistsStatistics />} />
+
+					<Route path="/register" element={<RegistrationForm />} />
+					<Route path="/activate/:activationCode" element={<ActivateAccount />} />
+					<Route path="/login" element={<LoginForm />} />
+					<Route path="/logout" element={<LogoutFrom />} />
+					<Route path="/profile/:profileId" element={<UserProfile />} />
 				</Routes>
 			</Router>
 		</React.Fragment>

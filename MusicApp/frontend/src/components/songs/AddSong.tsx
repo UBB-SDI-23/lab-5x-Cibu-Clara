@@ -9,7 +9,6 @@ import { Container } from "@mui/system";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_API_URL } from "../../constants";
-import { Song } from "../../models/Song";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import {toast, ToastContainer} from "react-toastify";
@@ -18,11 +17,12 @@ import "react-toastify/dist/ReactToastify.css";
 export const AddSong = () => {
 	const navigate = useNavigate();
 
-	const [song, setSong] = useState<Song>({
+	const [song, setSong] = useState<>({
 		song_name: "",
 		composer: "",
         genre:"",
         year_of_release:0,
+		added_by: 1
 	});
 
 	const addSong = async (event: { preventDefault: () => void }) => {
@@ -32,12 +32,16 @@ export const AddSong = () => {
 			{
 				throw new Error("Not a valid year!");
 			}
+			const id = localStorage.getItem('user_id');
+			if(id){
+				song.added_by = parseInt(id);
+			}
 			const response = await axios.post(`${BACKEND_API_URL}/songs/`, song);
 			if (response.status < 200 || response.status >= 300) {
 				throw new Error("An error occurred while adding the item!");
-			  } else {
+			} else {
 				navigate("/songs");
-			  }
+			}
 		} catch (error) {
 			toast.error((error as { message: string }).message);
 			console.log(error);

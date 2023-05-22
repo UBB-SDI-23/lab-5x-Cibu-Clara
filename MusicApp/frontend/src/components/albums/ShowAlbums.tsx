@@ -26,7 +26,7 @@ export const ShowAlbums = () => {
     const [albums, setAlbums] = useState<Album[]>([]);
     const [order, setOrder] = useState("asc");
     const [page, setPage] = useState(1);
-    const [pageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(10);
     const [totalRows, setTotalRows] = useState(0);
     const [isLastPage, setIsLastPage] = useState(false);
 
@@ -52,8 +52,12 @@ export const ShowAlbums = () => {
 
     const fetchAlbums = async () => {
         setLoading(true);
+        const stringUser = localStorage.getItem("user");
+        const user = JSON.parse(stringUser!);
+        const new_page_size = user?.page_size || 10;
+        setPageSize(new_page_size);
         const response = await fetch(
-          `${BACKEND_API_URL}/albums/?page=${page}&page_size=${pageSize}`
+          `${BACKEND_API_URL}/coach/?page=${page}&page_size=${new_page_size}`
         );
         const { count, next, results } = await response.json();
         setAlbums(results);
@@ -106,6 +110,7 @@ export const ShowAlbums = () => {
 								<TableCell align="right">Label</TableCell>
 								<TableCell align="right">Year of release</TableCell>
 								<TableCell align="right">Main artist</TableCell>
+                                <TableCell align="center">Added by</TableCell>
 								<TableCell align="center">Operations</TableCell>
 							</TableRow>
 						</TableHead>
@@ -124,6 +129,11 @@ export const ShowAlbums = () => {
 									<TableCell align="right">{album.label}</TableCell>
 									<TableCell align="right">{album.year_of_release}</TableCell>
 									<TableCell align="right">{album.main_artist?.artist_name}</TableCell>
+                                    <TableCell component="th" scope="row">
+                                        <Link to={`/profile/${album.added_by.id}`}>
+                                                {album.added_by.username}
+                                            </Link>
+                                    </TableCell>
 									<TableCell align="right">
 										<IconButton
 											component={Link}
@@ -154,8 +164,7 @@ export const ShowAlbums = () => {
                         setPage={setCurrentPage}
                         goToNextPage={goToNextPage}
                         goToPrevPage={goToPrevPage}
-                />
-			  </>
+                /></>
         )
         }
     </Container>

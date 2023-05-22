@@ -26,9 +26,9 @@ export const ShowSongs = () => {
     const [loading, setLoading] = useState(false);
     const [songs, setSongs] = useState<Song[]>([]);
     const [order, setOrder] = useState("asc");
-    let [input, setInput] = useState<number | undefined>();
+    const [input, setInput] = useState<number | undefined>();
     const [page, setPage] = useState(1);
-    const [pageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(10);
     const [totalRows, setTotalRows] = useState(0);
     const [isLastPage, setIsLastPage] = useState(false);
 
@@ -54,8 +54,12 @@ export const ShowSongs = () => {
 
     const fetchSongs = async () => {
         setLoading(true);
+        const stringUser = localStorage.getItem("user");
+        const user = JSON.parse(stringUser!);
+        const new_page_size = user?.page_size || 10;
+        setPageSize(new_page_size);
         const response = await fetch(
-          `${BACKEND_API_URL}/songs/?page=${page}&page_size=${pageSize}`
+          `${BACKEND_API_URL}/songs/?page=${page}&page_size=${new_page_size}`
         );
         const { count, next, results } = await response.json();
         setSongs(results);
@@ -120,6 +124,7 @@ export const ShowSongs = () => {
 								<TableCell align="right">Composer</TableCell>
 								<TableCell align="right">Genre</TableCell>
 								<TableCell align="right">Year of release</TableCell>
+                                <TableCell align="center" style={{color:"#2471A3", fontWeight: 'bold'}}>Added by</TableCell>
 								<TableCell align="center">Operations</TableCell>
 							</TableRow>
 						</TableHead>
@@ -137,6 +142,11 @@ export const ShowSongs = () => {
 									<TableCell align="right">{song.composer}</TableCell>
 									<TableCell align="right">{song.genre}</TableCell>
 									<TableCell align="right">{song.year_of_release}</TableCell>
+                                     <TableCell component="th" scope="row">
+                                    <Link to={`/profile/${song.added_by?.id}`}>
+                                        {song.added_by?.username}
+                                    </Link>
+                                    </TableCell>
 									<TableCell align="right">
 										<IconButton
 											component={Link}
@@ -167,8 +177,7 @@ export const ShowSongs = () => {
                         setPage={setCurrentPage}
                         goToNextPage={goToNextPage}
                         goToPrevPage={goToPrevPage}
-                />
-			  </>
+                /></>
         )
         }
     </Container>

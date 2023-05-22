@@ -1,4 +1,5 @@
 import {Artist} from "./Artist";
+import { User } from "./User";
 
 export interface Song {
     id?: number;
@@ -7,4 +8,5 @@ export interface Song {
     genre: string;
     year_of_release: number;
     artists?: Artist[];
+    added_by: User;
 }
