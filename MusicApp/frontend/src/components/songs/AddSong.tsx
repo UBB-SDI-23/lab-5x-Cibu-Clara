@@ -17,7 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 export const AddSong = () => {
 	const navigate = useNavigate();
 
-	const [song, setSong] = useState<>({
+	const [song, setSong] = useState({
 		song_name: "",
 		composer: "",
         genre:"",

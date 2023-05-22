@@ -20,7 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 export const AddAlbum = () => {
 	const navigate = useNavigate();
 
-	const [album, setAlbum] = useState<>({
+	const [album, setAlbum] = useState({
 		album_title: "",
 		nr_of_tracks: 1,
 		label: "",

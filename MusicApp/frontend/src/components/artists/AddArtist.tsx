@@ -17,7 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 export const AddArtist = () => {
 	const navigate = useNavigate();
 
-	const [artist, setArtist] = useState<>({
+	const [artist, setArtist] = useState({
 		artist_name: "",
 		real_name: "",
         country:"",

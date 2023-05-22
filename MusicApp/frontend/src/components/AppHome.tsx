@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { User } from '../models/User';
 import { Card, CardContent, Container, TextField } from '@mui/material';
 

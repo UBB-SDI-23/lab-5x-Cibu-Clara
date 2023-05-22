@@ -21,7 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 export const AddPerformance = () => {
 	const navigate = useNavigate();
 
-	const [performance, setPerformance] = useState<>({
+	const [performance, setPerformance] = useState({
 		artist_id: 1,
 		song_id: 1,
 		nr_of_views: 0,
