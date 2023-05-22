@@ -49,7 +49,6 @@ if __name__ == '__main__':
                                 # Generate username and password
                                 username = f"{first_name.lower()}{last_name.lower()}"
                                 password = "Password123"
-
                                 # Create user object
                                 user = User.objects.create_user(username=username, password=password)
                                 users.append(f"('{first_name}', '{last_name}', '{date_of_birth}', '{location}', '{bio}', '{username}', '{activation_code}', '{activation_expiry_date}', '{active}')")
