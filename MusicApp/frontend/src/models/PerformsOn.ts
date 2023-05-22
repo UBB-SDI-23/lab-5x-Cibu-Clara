@@ -1,5 +1,6 @@
 import {Song} from "./Song";
 import {Artist} from "./Artist";
+import { User } from "./User";
 
 export interface PerformsOn {
     id?: number;
@@ -9,4 +10,5 @@ export interface PerformsOn {
     artist_id?: number;
     nr_of_views: number;
     duration: string;
+    added_by: User;
 }

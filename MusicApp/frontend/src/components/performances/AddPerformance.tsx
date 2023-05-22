@@ -14,7 +14,6 @@ import { Artist } from "../../models/Artist";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {debounce} from 'lodash';
 import axios from "axios";
-import {PerformsOn} from "../../models/PerformsOn";
 import {Song} from "../../models/Song";
 import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,11 +21,12 @@ import "react-toastify/dist/ReactToastify.css";
 export const AddPerformance = () => {
 	const navigate = useNavigate();
 
-	const [performance, setPerformance] = useState<PerformsOn>({
+	const [performance, setPerformance] = useState<>({
 		artist_id: 1,
 		song_id: 1,
 		nr_of_views: 0,
-		duration: "00:00"
+		duration: "00:00",
+		added_by: 1
 	});
 
 	const [page] = useState(1);
@@ -36,7 +36,7 @@ export const AddPerformance = () => {
 
 	const fetchSuggestions1 = async (query: string) => {
 		try {
-			let url = `${BACKEND_API_URL}/artists/order-by-name/${query}/?page=${page}&page_size=${pageSize}`;
+			const url = `${BACKEND_API_URL}/artists/order-by-name/${query}/?page=${page}&page_size=${pageSize}`;
 			const response = await fetch(url);
 			const { results } = await response.json();
 			setArtists(results);
@@ -56,7 +56,7 @@ export const AddPerformance = () => {
 
 	const fetchSuggestions2 = async (query: string) => {
 		try {
-			let url = `${BACKEND_API_URL}/songs/order-by-name/${query}/?page=${page}&page_size=${pageSize}`;
+			const url = `${BACKEND_API_URL}/songs/order-by-name/${query}/?page=${page}&page_size=${pageSize}`;
 			const response = await fetch(url);
 			const { results } = await response.json();
 			setSongs(results);
@@ -83,14 +83,18 @@ export const AddPerformance = () => {
 			}
 			const pattern = /^\d{2}:\d{2}$/;
 			if (!pattern.test(performance.duration)) {
-  				throw new Error("Invalid duration format! Expected format: MM:SS");
+				throw new Error("Invalid duration format! Expected format: MM:SS");
+			}
+			const id = localStorage.getItem('user_id');
+			if(id){
+				performance.added_by = parseInt(id);
 			}
 			const response = await axios.post(`${BACKEND_API_URL}/performances/`, performance);
 			if (response.status < 200 || response.status >= 300) {
 				throw new Error("An error occurred while adding the item!");
-			  } else {
+			} else {
 				navigate("/performances");
-			  }
+			}
 		} catch (error) {
 			toast.error((error as { message: string }).message);
 			console.log(error);

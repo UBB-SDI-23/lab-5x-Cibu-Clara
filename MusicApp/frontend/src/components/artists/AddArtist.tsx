@@ -9,7 +9,6 @@ import { Container } from "@mui/system";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_API_URL } from "../../constants";
-import { Artist } from "../../models/Artist";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
@@ -18,16 +17,22 @@ import "react-toastify/dist/ReactToastify.css";
 export const AddArtist = () => {
 	const navigate = useNavigate();
 
-	const [artist, setArtist] = useState<Artist>({
+	const [artist, setArtist] = useState<>({
 		artist_name: "",
 		real_name: "",
         country:"",
-        email:""
+        email:"",
+		added_by: 1
 	});
 
 	const addArtist = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();
 		try {
+			const id = localStorage.getItem('user_id');
+			if(id){
+				artist.added_by = parseInt(id);
+				console.log(artist.added_by);
+			}
 			const response = await axios.post(`${BACKEND_API_URL}/artists/`, artist);
 			if (response.status < 200 || response.status >= 300)
 			{

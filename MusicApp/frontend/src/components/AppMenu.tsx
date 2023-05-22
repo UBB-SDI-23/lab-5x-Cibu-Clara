@@ -6,10 +6,49 @@ import GroupIcon from '@mui/icons-material/Group';
 import AlbumIcon from '@mui/icons-material/Album';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import LoginIcon from '@mui/icons-material/Login';
+import { useEffect, useState } from "react";
+import { User } from "../models/User";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export const AppMenu = () => {
 	const location = useLocation();
 	const path = location.pathname;
+	const [user, setUser] = useState<User>({
+		id:1,
+        username: '',
+        first_name: '',
+        last_name: '',
+        date_of_birth: '',
+        location: '',
+        bio: '',
+		page_size:1
+    });
+
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			const userString = localStorage.getItem('user');
+            const user = userString !== null ? JSON.parse(userString) : null;
+
+			if (user !== null) {
+                setUser(user);
+                return;
+			}
+
+            setUser({
+                id: 0,
+                username: '',
+                first_name: '',
+                last_name: '',
+                date_of_birth: '',
+                location: '',
+                bio: '',
+                page_size: 0
+            });
+		}, 250);
+
+		return () => clearInterval(intervalId);}, []);
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
@@ -28,6 +67,41 @@ export const AppMenu = () => {
 					<Typography variant="h6" component="div" sx={{ mr: 5 }}>
 						Music application
 					</Typography>
+					{user.username === '' && (
+					<Button
+						variant={path.startsWith("/register") ? "outlined" : "text"}
+						to="/register"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<HowToRegIcon />}>
+						Register
+					</Button>
+					)}
+
+					{user.username === '' && (
+					<Button
+						variant={path.startsWith("/login") ? "outlined" : "text"}
+						to="/login"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<LoginIcon />}>
+						LogIn
+					</Button>
+					)}
+
+					{user.username !== '' && (
+					<Button
+						variant={path.startsWith("/logout") ? "outlined" : "text"}
+						to="/logout"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<LogoutIcon />}>
+						LogOut
+					</Button>
+					)}
 					<Button
 						variant={path.startsWith("/songs") ? "outlined" : "text"}
 						to="/songs"
@@ -69,7 +143,7 @@ export const AppMenu = () => {
 						to="/statistics"
 						component={Link}
 						color="inherit"
-						 sx={{ ml: "auto" }}
+						sx={{ ml: "auto" }}
 						startIcon={<SignalCellularAltIcon />}>
 						Statistics
 					</Button>

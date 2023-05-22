@@ -26,7 +26,7 @@ export const ShowPerformances = () => {
     const [performances, setPerformances] = useState<PerformsOn[]>([]);
     // const [order, setOrder] = useState("asc");
     const [page, setPage] = useState(1);
-    const [pageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(10);
     const [totalRows, setTotalRows] = useState(0);
     const [isLastPage, setIsLastPage] = useState(false);
 
@@ -52,8 +52,12 @@ export const ShowPerformances = () => {
 
     const fetchPerformances = async () => {
         setLoading(true);
+        const stringUser = localStorage.getItem("user");
+        const user = JSON.parse(stringUser!);
+        const new_page_size = user?.page_size || 10;
+        setPageSize(new_page_size);
         const response = await fetch(
-          `${BACKEND_API_URL}/performances/?page=${page}&page_size=${pageSize}`
+          `${BACKEND_API_URL}/performances/?page=${page}&page_size=${new_page_size}`
         );
         const { count, next, results } = await response.json();
         setPerformances(results);
@@ -104,6 +108,7 @@ export const ShowPerformances = () => {
 								<TableCell align="right">Song name</TableCell>
 								<TableCell align="right">Number of views</TableCell>
 								<TableCell align="right">Duration</TableCell>
+                                <TableCell align="center" style={{color:"#2471A3", fontWeight: 'bold'}}>Added by</TableCell>
 								<TableCell align="center">Operations</TableCell>
 							</TableRow>
 						</TableHead>
@@ -121,6 +126,12 @@ export const ShowPerformances = () => {
 									<TableCell align="center">{performance.song?.song_name}</TableCell>
 									<TableCell align="right">{performance.nr_of_views}</TableCell>
 									<TableCell align="right">{performance.duration}</TableCell>
+                                    <TableCell component="th" scope="row">
+                                    <Link to={`/profile/${performance.added_by?.id}`}>
+                                        {performance.added_by?.username}
+
+                                    </Link>
+                                    </TableCell>
 									<TableCell align="right">
 										<IconButton
 											component={Link}
@@ -151,8 +162,7 @@ export const ShowPerformances = () => {
                         setPage={setCurrentPage}
                         goToNextPage={goToNextPage}
                         goToPrevPage={goToPrevPage}
-                />
-			  </>
+                /></>
         )
         }
     </Container>

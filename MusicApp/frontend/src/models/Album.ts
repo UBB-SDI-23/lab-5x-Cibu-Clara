@@ -1,4 +1,5 @@
 import {Artist} from "./Artist";
+import { User } from "./User";
 
 export interface Album {
     id?: number;
@@ -8,4 +9,5 @@ export interface Album {
     year_of_release: number;
     main_artist?: Artist;
     main_artist_id?: number;
+    added_by: User;
 }

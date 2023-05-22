@@ -1,27 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { User } from '../models/User';
 import { Card, CardContent, Container, TextField } from '@mui/material';
+import { FullUser } from '../models/FullUser';
+import { useParams } from 'react-router-dom';
+import { BACKEND_API_URL } from '../constants';
 
-export const AppHome = () => {
-	const [user, setUser] = useState<User>({
-		id:1,
+export const UserProfile = () => {
+
+    const { profileId } = useParams();
+
+    const [user, setUser] = useState<FullUser>({
         username: '',
         first_name: '',
         last_name: '',
         date_of_birth: '',
         location: '',
         bio: '',
-		page_size: 1
+        songs_count:1,
+        artists_count:1,
+        albums_count:1,
+        performances_count:1
     });
 
     useEffect(() => {
-        const userString = localStorage.getItem('user');
-        const user = userString !== null ? JSON.parse(userString) : null;
-
-        if (user !== null) {
-            setUser(user);
-        }
-    }, []);
+		const fetchUser = async () => {
+			const response = await fetch(`${BACKEND_API_URL}/profile/${profileId}/`);
+			const user = await response.json();
+			setUser(user);
+            console.log(user);
+		};
+		fetchUser();
+	}, [profileId]);
 
 
     return (
@@ -32,34 +40,7 @@ export const AppHome = () => {
 
 		{user.username !== '' && (
 			<>
-		<h1>Welcome back, {user.username}!</h1>
-		<>
-		<TextField
-			id="page_sizes"
-			label="Page Size"
-			variant="outlined"
-			fullWidth
-			sx={{ mb: 2, color: "whitesmoke !important" }}
-			value={user.page_size}
-			type="number"
-			onChange={(event) => {
-				const size = Number(event.target.value);
-				if (size < 0 || size > 100) {
-					return;
-				}
-
-				setUser({
-					...user,
-					page_size: size
-				});
-
-				localStorage.setItem('user', JSON.stringify({
-					...user,
-					page_size: size
-				}));
-			}}
-			/>
-		</>
+		<h1>{user.username}' s details!</h1>
 		<Container>
 		<Card style={{ backgroundColor: "whitesmoke", color: "whitesmoke" }}>
 			<CardContent style={{ backgroundColor: "whitesmoke", color: "whitesmoke" }}>
@@ -135,6 +116,58 @@ export const AppHome = () => {
 					}}
 				/>
 
+                <TextField
+					id="swimmers"
+					label="Swimmers Count"
+					variant="outlined"
+					fullWidth
+					sx={{ mb: 2, color: "whitesmoke !important" }}
+					value={user.songs_count}
+					InputProps={{
+						readOnly: true,
+					}}
+                    InputLabelProps={{ shrink: true }}
+				/>
+
+                <TextField
+					id="teams"
+					label="Teams Count"
+					variant="outlined"
+					fullWidth
+					sx={{ mb: 2, color: "whitesmoke !important" }}
+					value={user.artists_count}
+					InputProps={{
+						readOnly: true,
+					}}
+                    InputLabelProps={{ shrink: true }}
+				/>
+
+                <TextField
+					id="coaches"
+					label="Coaches Count"
+					variant="outlined"
+					fullWidth
+					sx={{ mb: 2, color: "whitesmoke !important" }}
+					value={user.albums_count}
+					InputProps={{
+						readOnly: true,
+					}}
+                    InputLabelProps={{ shrink: true }}
+				/>
+
+                <TextField
+					id="teams"
+					label="Fans Count"
+					variant="outlined"
+					fullWidth
+					sx={{ mb: 2, color: "whitesmoke !important" }}
+					value={user.performances_count}
+					InputProps={{
+						readOnly: true,
+					}}
+                    InputLabelProps={{ shrink: true }}
+				/>
+
 			</CardContent>
 		</Card>
 	</Container>
@@ -142,4 +175,6 @@ export const AppHome = () => {
 	)}
 	</>
     );
+
+
 };
