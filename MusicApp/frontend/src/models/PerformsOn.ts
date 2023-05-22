@@ -4,9 +4,9 @@ import { User } from "./User";
 
 export interface PerformsOn {
     id?: number;
-    song?: Song;
+    song: Song;
     song_id: number;
-    artist?: Artist;
+    artist: Artist;
     artist_id: number;
     nr_of_views: number;
     duration: string;
