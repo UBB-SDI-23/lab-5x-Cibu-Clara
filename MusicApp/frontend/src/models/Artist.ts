@@ -12,4 +12,5 @@ export interface Artist {
     songs?: Song[];
     albums? : Album[];
     added_by?: User;
+    added_by_id?: number;
 }

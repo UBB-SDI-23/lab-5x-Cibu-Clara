@@ -13,16 +13,17 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {Song} from "../../models/Song";
 
 export const AddSong = () => {
 	const navigate = useNavigate();
 
-	const [song, setSong] = useState({
+	const [song, setSong] = useState<Song>({
 		song_name: "",
 		composer: "",
         genre:"",
         year_of_release:0,
-		added_by: 1
+		added_by_id: 1
 	});
 
 	const addSong = async (event: { preventDefault: () => void }) => {
@@ -34,7 +35,7 @@ export const AddSong = () => {
 			}
 			const id = localStorage.getItem('user_id');
 			if(id){
-				song.added_by = parseInt(id);
+				song.added_by_id = parseInt(id);
 			}
 			const response = await axios.post(`${BACKEND_API_URL}/songs/`, song);
 			if (response.status < 200 || response.status >= 300) {
