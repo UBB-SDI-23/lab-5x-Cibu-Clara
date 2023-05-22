@@ -130,8 +130,8 @@ export const ShowAlbums = () => {
 									<TableCell align="right">{album.year_of_release}</TableCell>
 									<TableCell align="right">{album.main_artist?.artist_name}</TableCell>
                                     <TableCell component="th" scope="row">
-                                        <Link to={`/profile/${album.added_by.id}`}>
-                                                {album.added_by.username}
+                                        <Link to={`/profile/${album.added_by?.id}`}>
+                                                {album.added_by?.username}
                                             </Link>
                                     </TableCell>
 									<TableCell align="right">
