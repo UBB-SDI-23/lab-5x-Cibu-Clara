@@ -140,7 +140,6 @@ class ArtistList(APIView):
 class ArtistListCreateView(generics.ListCreateAPIView):
     serializer_class = ArtistSerializer
     pagination_class = CustomPagination
-
     def get_queryset(self):
         queryset = Artist.objects.all().annotate(nr_albums=Count('albums')).order_by('id')
         print(queryset.explain())
@@ -188,7 +187,7 @@ class ArtistInfo(APIView):
         return Response("success")
 
     @extend_schema(responses=ArtistSerializer)
-    def put(self, request, id):
+                                                                                                            def put(self, request, id):
         try:
             obj = Artist.objects.get(id=id)
 
@@ -281,7 +280,6 @@ class AlbumInfo(APIView):
     def get(self, request, id):
         try:
             obj = Album.objects.get(id=id)
-
         except Album.DoesNotExist:
             msg = {"msg": "not found"}
             return Response(msg, status=status.HTTP_404_NOT_FOUND)
@@ -329,7 +327,6 @@ class AlbumInfo(APIView):
         except Album.DoesNotExist:
             msg = {"msg": "not found"}
             return Response(msg, status=status.HTTP_404_NOT_FOUND)
-
         obj.delete()
         return Response({"msg": "deleted"}, status=status.HTTP_204_NO_CONTENT)
 
@@ -424,7 +421,6 @@ class PerformsOnInfo(APIView):
             return Response(msg, status=status.HTTP_404_NOT_FOUND)
 
         serializer = PerformsOnSerializer(obj, data=request.data, partial=True)
-
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_205_RESET_CONTENT)
@@ -516,7 +512,7 @@ class UserRegistrationView(generics.CreateAPIView):
         data["active"] = False
 
         serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
+                                                                                                          serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(
@@ -563,3 +559,4 @@ class UserActivationView(generics.UpdateAPIView):
 
 class LoginView(TokenViewBase):
     serializer_class = MyTokenObtainPairSerializer
+

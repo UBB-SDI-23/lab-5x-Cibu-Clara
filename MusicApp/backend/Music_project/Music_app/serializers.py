@@ -44,7 +44,9 @@ class ArtistSerializer(DynamicFieldsModelSerializer):
     country = serializers.CharField(max_length=100)
     email = serializers.EmailField(max_length=100)
     nr_albums = serializers.IntegerField(read_only=True)
+    added_by = User()
     songs = Song()
+    added_by_id = serializers.IntegerField(write_only=True)
 
     def validate_email(self, value):
         existing_emails = Artist.objects.filter(email=value)
@@ -57,7 +59,7 @@ class ArtistSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = Artist
-        fields = ('id', 'artist_name', 'real_name', 'country', 'email', 'nr_albums', 'songs')
+        fields = "__all__"
         ordering = ['id']
 
 
@@ -69,6 +71,8 @@ class SongSerializer(DynamicFieldsModelSerializer):
     genre = serializers.CharField(max_length=100)
     year_of_release = serializers.IntegerField()
     artists = ArtistSerializer(many=True, read_only=True)
+    added_by = User()
+    added_by_id = serializers.IntegerField(write_only=True)
 
     def validate_year_of_release(self, value):
         today = datetime.datetime.now()
@@ -79,8 +83,7 @@ class SongSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = Song
-        fields = (
-            'id', 'song_name', 'composer', 'genre', 'year_of_release', 'artists')
+        fields = "__all__"
         ordering = ['id']
 
 
@@ -93,6 +96,8 @@ class AlbumSerializer(DynamicFieldsModelSerializer):
     year_of_release = serializers.IntegerField()
     main_artist = ArtistSerializer(read_only=True)
     main_artist_id = serializers.IntegerField(write_only=True)
+    added_by = User()
+    added_by_id = serializers.IntegerField(write_only=True)
 
     def validate_nr_of_tracks(self, value):
         if value <= 0:
@@ -135,8 +140,6 @@ class AlbumSerializerID(DynamicFieldsModelSerializer):
         model = Album
         fields = "__all__"
         depth = 1
-
-
 class PerformsOnSerializer(DynamicFieldsModelSerializer):
     """
     """
@@ -146,6 +149,8 @@ class PerformsOnSerializer(DynamicFieldsModelSerializer):
     duration = serializers.CharField(max_length=10)
     song_id = serializers.IntegerField(write_only=True)
     artist_id = serializers.IntegerField(write_only=True)
+    added_by = User()
+    added_by_id = serializers.IntegerField(write_only=True)
 
     def validate_duration(self, value):
         pattern = r'^\d{2}:\d{2}$'
@@ -275,6 +280,3 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data["access"] = str(refresh.access_token)
 
         return data
-
-
-
