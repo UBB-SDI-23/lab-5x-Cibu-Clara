@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
                                 # Create user object
                                 user = User.objects.create_user(username=username, password=password)
-                                users.append(f"('{first_name}', '{last_name}', '{date_of_birth}', '{location}', '{bio}', '{username}', '{activation_code}', '{activation_expiry_date}', {act>
+                                users.append(f"('{first_name}', '{last_name}', '{date_of_birth}', '{location}', '{bio}', '{username}', '{activation_code}', '{activation_expiry_date}', {active})")
                         data = f"""INSERT INTO "Music_app_userprofile" (first_name, last_name, date_of_birth, location, bio, user_id, activation_code, activation_expiry_date, active) VALUES {','.join(users)};"""
                         file.write(data + "\n")
 
