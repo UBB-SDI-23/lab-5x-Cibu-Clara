@@ -57,7 +57,7 @@ export const ShowAlbums = () => {
         const new_page_size = user?.page_size || 10;
         setPageSize(new_page_size);
         const response = await fetch(
-          `${BACKEND_API_URL}/coach/?page=${page}&page_size=${new_page_size}`
+          `${BACKEND_API_URL}/albums/?page=${page}&page_size=${new_page_size}`
         );
         const { count, next, results } = await response.json();
         setAlbums(results);
