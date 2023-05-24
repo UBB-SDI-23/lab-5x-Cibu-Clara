@@ -80,7 +80,7 @@ export const RegistrationForm = () => {
                     variant="outlined"
                     fullWidth
                     sx={{ mb: 2, color: "whitesmoke !important" }}
-                    onChange={(event) => setFormData({ ...formData, firstName: event.target.value })}
+                    onChange={(event) => setFormData({ ...formData, first_name: event.target.value })}
                     />
 
                     <TextField
@@ -89,7 +89,7 @@ export const RegistrationForm = () => {
                     variant="outlined"
                     fullWidth
                     sx={{ mb: 2, color: "whitesmoke !important" }}
-                    onChange={(event) => setFormData({ ...formData, lastName: event.target.value })}
+                    onChange={(event) => setFormData({ ...formData, last_name: event.target.value })}
                     />
 
                     <TextField
