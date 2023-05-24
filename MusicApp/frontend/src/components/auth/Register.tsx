@@ -10,11 +10,11 @@ export const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     date_of_birth: '',
-    bio: '',
     location: '',
+    bio: '',
   });
 
   const navigate = useNavigate();
@@ -30,11 +30,11 @@ export const RegistrationForm = () => {
                 username: formData.username,
                 password: formData.password
             },
-            user_first_name: formData.firstName,
-            user_last_name: formData.lastName,
-            user_date_of_birth: formData.date_of_birth,
-            user_bio: formData.bio,
-            user_location: formData.location
+            first_name: formData.first_name,
+            last_name: formData.last_name,
+            date_of_birth: formData.date_of_birth,
+            location: formData.location,
+            bio: formData.bio
         }
         const response = await axios.post(`${BACKEND_API_URL}/register/`, data);
         setCode(response.data['activation_code']);
@@ -75,7 +75,7 @@ export const RegistrationForm = () => {
                     />
 
                     <TextField
-                    id="firstName"
+                    id="first_name"
                     label="First Name"
                     variant="outlined"
                     fullWidth
@@ -84,7 +84,7 @@ export const RegistrationForm = () => {
                     />
 
                     <TextField
-                    id="lastName"
+                    id="last_name"
                     label="Last Name"
                     variant="outlined"
                     fullWidth
@@ -102,21 +102,21 @@ export const RegistrationForm = () => {
                     />
 
                     <TextField
-                    id="bio"
-                    label="Bio"
-                    variant="outlined"
-                    fullWidth
-                    sx={{ mb: 2, color: "whitesmoke !important" }}
-                    onChange={(event) => setFormData({ ...formData, bio: event.target.value })}
-                    />
-
-                    <TextField
                     id="location"
                     label="Location"
                     variant="outlined"
                     fullWidth
                     sx={{ mb: 2, color: "whitesmoke !important" }}
                     onChange={(event) => setFormData({ ...formData, location: event.target.value })}
+                    />
+
+                    <TextField
+                    id="bio"
+                    label="Bio"
+                    variant="outlined"
+                    fullWidth
+                    sx={{ mb: 2, color: "whitesmoke !important" }}
+                    onChange={(event) => setFormData({ ...formData, bio: event.target.value })}
                     />
 
                     <Button type="submit">Register</Button>
