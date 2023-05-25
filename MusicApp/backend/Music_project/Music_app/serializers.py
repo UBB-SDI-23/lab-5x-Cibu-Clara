@@ -37,15 +37,6 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    def validate_username(self, value):
-        existing_usernames = User.objects.filter(username=value)
-
-        if self.instance:
-            existing_usernames = existing_usernames.exclude(pk=self.instance.pk)
-        if existing_usernames.exists():
-            raise serializers.ValidationError("This username is already in use!")
-        return value
-
     def validate_password(self, value):
         if not any(char.isdigit() for char in value):
             raise serializers.ValidationError("Password must contain at least one digit!")
@@ -62,13 +53,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-
-    def validate_date_of_birth(self, value):
-        pattern = r'^\d{4}-\d{2}-\d{2}$'
-        if not re.match(pattern, value):
-            raise serializers.ValidationError("Invalid birth date format. Please enter in the format YYYY-MM-DD.")
-
-        return value
 
     class Meta:
         model = UserProfile
