@@ -36,10 +36,11 @@ export const RegistrationForm = () => {
             location: formData.location,
             bio: formData.bio
         }
-
-        console.log("1")
+        const pattern = /^\d{4}-\d{2}-\d{2}$/;
+        if (!pattern.test(data.date_of_birth)) {
+            throw new Error("Invalid birth date format! Expected format: YYYY-MM-DD");
+        }
         const response = await axios.post(`${BACKEND_API_URL}/register/`, data);
-
         console.log("1")
         setCode(response.data['activation_code']);
 
