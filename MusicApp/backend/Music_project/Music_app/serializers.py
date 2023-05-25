@@ -46,7 +46,7 @@ class ArtistSerializer(DynamicFieldsModelSerializer):
     nr_albums = serializers.IntegerField(read_only=True)
     added_by = User()
     songs = Song()
-    added_by_id = serializers.IntegerField(write_only=True)
+    added_by_id = serializers.IntegerField()
 
     def validate_email(self, value):
         existing_emails = Artist.objects.filter(email=value)
@@ -72,7 +72,7 @@ class SongSerializer(DynamicFieldsModelSerializer):
     year_of_release = serializers.IntegerField()
     artists = ArtistSerializer(many=True, read_only=True)
     added_by = User()
-    added_by_id = serializers.IntegerField(write_only=True)
+    added_by_id = serializers.IntegerField()
 
     def validate_year_of_release(self, value):
         today = datetime.datetime.now()
@@ -97,7 +97,7 @@ class AlbumSerializer(DynamicFieldsModelSerializer):
     main_artist = ArtistSerializer(read_only=True)
     main_artist_id = serializers.IntegerField(write_only=True)
     added_by = User()
-    added_by_id = serializers.IntegerField(write_only=True)
+    added_by_id = serializers.IntegerField()
 
     def validate_nr_of_tracks(self, value):
         if value <= 0:
@@ -153,7 +153,7 @@ class PerformsOnSerializer(DynamicFieldsModelSerializer):
     song_id = serializers.IntegerField(write_only=True)
     artist_id = serializers.IntegerField(write_only=True)
     added_by = User()
-    added_by_id = serializers.IntegerField(write_only=True)
+    added_by_id = serializers.IntegerField()
 
     def validate_duration(self, value):
         pattern = r'^\d{2}:\d{2}$'
