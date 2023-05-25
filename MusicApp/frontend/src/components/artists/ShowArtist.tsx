@@ -129,8 +129,8 @@ export const ShowArtists = () => {
 									<TableCell align="right">{artist.country}</TableCell>
 									<TableCell align="right">{artist.email}</TableCell>
                                     <TableCell align="right">{artist.nr_albums}</TableCell>
-                                     <TableCell component="th" scope="row">
-                                    <Link to={`/profile/${artist.added_by?.id}`}>
+                                     <TableCell align="right" component="th" scope="row">
+                                    <Link to={`/profile/${artist.added_by_id}`}>
                                                 {artist.added_by?.username}
                                             </Link>
                                     </TableCell>

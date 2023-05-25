@@ -126,8 +126,8 @@ export const ShowPerformances = () => {
 									<TableCell align="center">{performance.song?.song_name}</TableCell>
 									<TableCell align="right">{performance.nr_of_views}</TableCell>
 									<TableCell align="right">{performance.duration}</TableCell>
-                                    <TableCell component="th" scope="row">
-                                    <Link to={`/profile/${performance.added_by?.id}`}>
+                                    <TableCell align="right" component="th" scope="row">
+                                    <Link to={`/profile/${performance.added_by_id}`}>
                                         {performance.added_by?.username}
 
                                     </Link>
