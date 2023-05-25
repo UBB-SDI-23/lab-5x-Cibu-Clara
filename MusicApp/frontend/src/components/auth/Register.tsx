@@ -40,7 +40,7 @@ export const RegistrationForm = () => {
         setCode(response.data['activation_code']);
 
     }
-    catch (error) {
+    catch (error: any) {
         const errors = error.response.data.user;
         for (const key in errors) {
             toast.error(`${key}: ${errors[key]}`);
