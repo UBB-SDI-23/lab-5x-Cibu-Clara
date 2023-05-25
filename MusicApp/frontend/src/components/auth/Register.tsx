@@ -41,12 +41,10 @@ export const RegistrationForm = () => {
             throw new Error("Invalid birth date format! Expected format: YYYY-MM-DD");
         }
         const response = await axios.post(`${BACKEND_API_URL}/register/`, data);
-        console.log("1")
         setCode(response.data['activation_code']);
-
-    console.log("1")
     }
     catch (error: any) {
+        toast.error((error as { message: string }).message);
         console.log(error);
         const errors = error.response.data.user;
         for (const key in errors) {
