@@ -59,7 +59,7 @@ class ArtistSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = Artist
-        fields = ('artist_name', 'real_name', 'country', 'email', 'nr_albums', 'songs', 'added_by_id')
+        fields = ('id', 'artist_name', 'real_name', 'country', 'email', 'nr_albums', 'songs', 'added_by_id')
         ordering = ['id']
 
 
@@ -83,7 +83,7 @@ class SongSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = Song
-        fields = ('song_name', 'composer', 'genre', 'year_of_release', 'artists', 'added_by_id')
+        fields = ('id', 'song_name', 'composer', 'genre', 'year_of_release', 'artists', 'added_by_id')
         ordering = ['id']
 
 
@@ -113,7 +113,7 @@ class AlbumSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = Album
-        fields = ('album_title', 'nr_of_tracks', 'label', 'year_of_release', 'main_artist', 'main_artist_id',
+        fields = ('id', 'album_title', 'nr_of_tracks', 'label', 'year_of_release', 'main_artist', 'main_artist_id',
                   'added_by_id')
         ordering = ['id']
 
@@ -168,7 +168,7 @@ class PerformsOnSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = PerformsOn
-        fields = ('song', 'artist', 'nr_of_views', 'duration', 'song_id', 'artist_id', 'added_by_id')
+        fields = ('id', 'song', 'artist', 'nr_of_views', 'duration', 'song_id', 'artist_id', 'added_by_id')
         ordering = ['id']
 
 
