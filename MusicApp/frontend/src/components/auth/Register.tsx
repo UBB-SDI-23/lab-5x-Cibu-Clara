@@ -41,6 +41,7 @@ export const RegistrationForm = () => {
 
     }
     catch (error: any) {
+        console.log(error);
         const errors = error.response.data.user;
         for (const key in errors) {
             toast.error(`${key}: ${errors[key]}`);
