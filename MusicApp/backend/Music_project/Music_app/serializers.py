@@ -36,6 +36,37 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
                 to_access.fields.pop(split[-1])
 
 
+class UserSerializer(serializers.ModelSerializer):
+    def validate_password(self, value):
+        if not any(char.isdigit() for char in value):
+            raise serializers.ValidationError("Password must contain at least one digit!")
+
+        if not any(char.isupper() for char in value):
+            raise serializers.ValidationError("Password must contain at least one uppercase letter!")
+
+        return value
+
+    class Meta:
+        model = User
+        fields = ["username", "password"]
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = UserProfile
+        fields = ["user", "first_name", "last_name", "date_of_birth", "location", "bio", "activation_code",
+                  "activation_expiry_date", "active"]
+
+    def create(self, validated_data: OrderedDict[str, Any]) -> UserProfile:
+        user_data = validated_data.pop("user")
+        user_data['is_active'] = False
+        user = User.objects.create_user(**user_data)
+        user_profile = UserProfile.objects.create(user=user, **validated_data)
+        return user_profile
+
+
 class ArtistSerializer(DynamicFieldsModelSerializer):
     """
     """
@@ -44,9 +75,9 @@ class ArtistSerializer(DynamicFieldsModelSerializer):
     country = serializers.CharField(max_length=100)
     email = serializers.EmailField(max_length=100)
     nr_albums = serializers.IntegerField(read_only=True)
-    added_by = User()
+    added_by = UserProfileSerializer(read_only=True)
     songs = Song()
-    added_by_id = serializers.IntegerField()
+    added_by_id = serializers.IntegerField(write_only=True)
 
     def validate_email(self, value):
         existing_emails = Artist.objects.filter(email=value)
@@ -71,8 +102,8 @@ class SongSerializer(DynamicFieldsModelSerializer):
     genre = serializers.CharField(max_length=100)
     year_of_release = serializers.IntegerField()
     artists = ArtistSerializer(many=True, read_only=True)
-    added_by = User()
-    added_by_id = serializers.IntegerField()
+    added_by = UserProfileSerializer(read_only=True)
+    added_by_id = serializers.IntegerField(write_only=True)
 
     def validate_year_of_release(self, value):
         today = datetime.datetime.now()
@@ -96,8 +127,8 @@ class AlbumSerializer(DynamicFieldsModelSerializer):
     year_of_release = serializers.IntegerField()
     main_artist = ArtistSerializer(read_only=True)
     main_artist_id = serializers.IntegerField(write_only=True)
-    added_by = User()
-    added_by_id = serializers.IntegerField()
+    added_by = UserProfileSerializer(read_only=True)
+    added_by_id = serializers.IntegerField(write_only=True)
 
     def validate_nr_of_tracks(self, value):
         if value <= 0:
@@ -152,8 +183,8 @@ class PerformsOnSerializer(DynamicFieldsModelSerializer):
     duration = serializers.CharField(max_length=10)
     song_id = serializers.IntegerField(write_only=True)
     artist_id = serializers.IntegerField(write_only=True)
-    added_by = User()
-    added_by_id = serializers.IntegerField()
+    added_by = UserProfileSerializer(read_only=True)
+    added_by_id = serializers.IntegerField(write_only=True)
 
     def validate_duration(self, value):
         pattern = r'^\d{2}:\d{2}$'
@@ -212,37 +243,6 @@ class SongsNumberStatisticsSerializer(DynamicFieldsModelSerializer):
         model = Song
         fields = ['song_name', 'composer', 'genre', 'year_of_release', 'no_of_performances']
         depth = 1
-
-
-class UserSerializer(serializers.ModelSerializer):
-    def validate_password(self, value):
-        if not any(char.isdigit() for char in value):
-            raise serializers.ValidationError("Password must contain at least one digit!")
-
-        if not any(char.isupper() for char in value):
-            raise serializers.ValidationError("Password must contain at least one uppercase letter!")
-
-        return value
-
-    class Meta:
-        model = User
-        fields = ["username", "password"]
-
-
-class UserProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-
-    class Meta:
-        model = UserProfile
-        fields = ["user", "first_name", "last_name", "date_of_birth", "location", "bio", "activation_code",
-                  "activation_expiry_date", "active"]
-
-    def create(self, validated_data: OrderedDict[str, Any]) -> UserProfile:
-        user_data = validated_data.pop("user")
-        user_data['is_active'] = False
-        user = User.objects.create_user(**user_data)
-        user_profile = UserProfile.objects.create(user=user, **validated_data)
-        return user_profile
 
 
 class UserProfileDetailSerializer(serializers.ModelSerializer):
