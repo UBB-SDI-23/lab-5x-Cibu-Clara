@@ -12,6 +12,7 @@ class Song(models.Model):
 
     class Meta:
         ordering = ['id']
+        indexes = [models.Index(fields=["year_of_release", "id"])]
 
     def __str__(self):
         return self.song_name
@@ -27,6 +28,7 @@ class Artist(models.Model):
 
     class Meta:
         ordering = ['id']
+        indexes = [models.Index(fields=["email"])]
 
     def __str__(self):
         return self.artist_name
@@ -42,6 +44,7 @@ class Album(models.Model):
 
     class Meta:
         ordering = ['id']
+        indexes = [models.Index(fields=["main_artist", "id"])]
 
     def __str__(self):
         return self.album_title
@@ -56,6 +59,10 @@ class PerformsOn(models.Model):
 
     class Meta:
         ordering = ['id']
+        indexes = [models.Index(fields=["song", "artist"]), 
+                models.Index(fields=["song"]),
+                models.Index(fields=["artist"]),
+                models.Index(fields=["nr_of_views"])]
 
     def __str__(self):
         return self.artist.artist_name + " - " + self.song.song_name
