@@ -30,9 +30,9 @@ if __name__ == '__main__':
                                 while email in existing_emails:
                                         email = replace_quotes(fake.email())  # Generate a new email if it's not unique
                                 existing_emails.add(email)
-                                added_by = fake.random_int(min=1, max=10000)
-                                artists.append(f"('{artist_name}', '{real_name}', '{country}', '{email}', '{added_by}')")
-                        data = f"""INSERT INTO "Music_app_artist" (artist_name, real_name, country, email, added_by) VALUES {','.join(artists)};"""
+                                added_by_id = fake.random_int(min=1, max=10000)
+                                artists.append(f"('{artist_name}', '{real_name}', '{country}', '{email}', '{added_by_id}')")
+                        data = f"""INSERT INTO "Music_app_artist" (artist_name, real_name, country, email, added_by_id) VALUES {','.join(artists)};"""
                         file.write(data + "\n")
 
                 print("Artists added")
@@ -46,9 +46,9 @@ if __name__ == '__main__':
                                 label = replace_quotes(fake.text(max_nb_chars=10))
                                 main_artist_id = fake.random_int(min=1, max=1000)
                                 year_of_release = fake.random_int(min=1900, max=2023)
-                                added_by = fake.random_int(min=1, max=10000)
-                                albums.append(f"('{album_title}', '{nr_of_tracks}', '{label}', '{year_of_release}', '{main_artist_id}', '{added_by}')")
-                        data = f"""INSERT INTO "Music_app_album" (album_title, nr_of_tracks, label, year_of_release, main_artist_id, added_by) VALUES {','.join(albums)};"""
+                                added_by_id = fake.random_int(min=1, max=10000)
+                                albums.append(f"('{album_title}', '{nr_of_tracks}', '{label}', '{year_of_release}', '{main_artist_id}', '{added_by_id}')")
+                        data = f"""INSERT INTO "Music_app_album" (album_title, nr_of_tracks, label, year_of_release, main_artist_id, added_by_id) VALUES {','.join(albums)};"""
                         file.write(data + "\n")
 
                 print("Albums added")
@@ -61,9 +61,9 @@ if __name__ == '__main__':
                                 composer = replace_quotes(fake.name())
                                 genre = fake.random_element(elements=("pop", "electronic", "dance", "dnb", "soul", "reggae", "classical", "hip hop", "blues", "rock", "jazz", "minimal", "house", "rap"))
                                 year_of_release = fake.random_int(min=1900, max=2023)
-                                added_by = fake.random_int(min=1, max=10000)
-                                songs.append(f"('{song_name}', '{composer}', '{genre}', '{year_of_release}', '{added_by}')")
-                        data = f"""INSERT INTO "Music_app_song" (song_name, composer, genre, year_of_release, added_by) VALUES {','.join(songs)};"""
+                                added_by_id = fake.random_int(min=1, max=10000)
+                                songs.append(f"('{song_name}', '{composer}', '{genre}', '{year_of_release}', '{added_by_id}')")
+                        data = f"""INSERT INTO "Music_app_song" (song_name, composer, genre, year_of_release, added_by_id) VALUES {','.join(songs)};"""
                         file.write(data + "\n")
 
                 print("Songs added")
@@ -81,9 +81,9 @@ if __name__ == '__main__':
                                 minutes = fake.random_int(min=0, max=10)
                                 seconds = fake.random_int(min=0, max=59)
                                 duration = f"{minutes:02d}:{seconds:02d}"
-                                added_by = fake.random_int(min=1, max=10000)
-                                performances.append(f"('{nr_of_views}', '{duration}', '{artist_id}', '{song_id}', '{added_by}')")
-                        data = f"""INSERT INTO "Music_app_performson" (nr_of_views, duration, artist_id, song_id, added_by) VALUES {','.join(performances)};"""
+                                added_by_id = fake.random_int(min=1, max=10000)
+                                performances.append(f"('{nr_of_views}', '{duration}', '{artist_id}', '{song_id}', '{added_by_id}')")
+                        data = f"""INSERT INTO "Music_app_performson" (nr_of_views, duration, artist_id, song_id, added_by_id) VALUES {','.join(performances)};"""
                         file.write(data + "\n")
 
                 print("PerformsOn added")

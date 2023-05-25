@@ -187,7 +187,7 @@ class ArtistInfo(APIView):
         return Response("success")
 
     @extend_schema(responses=ArtistSerializer)
-                                                                                                            def put(self, request, id):
+    def put(self, request, id):
         try:
             obj = Artist.objects.get(id=id)
 
@@ -512,7 +512,7 @@ class UserRegistrationView(generics.CreateAPIView):
         data["active"] = False
 
         serializer = self.get_serializer(data=data)
-                                                                                                          serializer.is_valid(raise_exception=True)
+        serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(
