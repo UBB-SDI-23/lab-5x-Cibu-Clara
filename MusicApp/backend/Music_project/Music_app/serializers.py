@@ -63,6 +63,12 @@ class UserSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 
+    def validate_date_of_birth(self, value):
+        pattern = r'^\d{4}-\d{2}-\d{2}$'
+        if not re.match(pattern, value):
+            raise serializers.ValidationError("Invalid birth date format! Expected format: YYYY-MM-DD")
+        return value
+
     class Meta:
         model = UserProfile
         fields = ["user", "first_name", "last_name", "date_of_birth", "location", "bio", "activation_code",
