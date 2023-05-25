@@ -41,15 +41,23 @@ export const RegistrationForm = () => {
             throw new Error("Invalid birth date format! Expected format: YYYY-MM-DD");
         }
         const response = await axios.post(`${BACKEND_API_URL}/register/`, data);
-        if (response.status < 200 || response.status >= 300) {
-				throw new Error("Password must contain at least one digit!");
-			}
         setCode(response.data['activation_code']);
     }
-    catch (error) {
-        toast.error((error as { message: string }).message);
-        console.log(error);
+    catch (error: any) {
+  toast.dismiss(); // Dismiss any existing toasts
+
+  if (error.response && error.response.status === 400) {
+    const errors = error.response.data.user;
+    for (const key in errors) {
+      if (key === 'password') {
+        toast.error(`${key}: ${errors[key]}`);
+      }
     }
+  } else {
+    toast.error((error as { message: string }).message);
+    console.log(error);
+  }
+}
   };
 
   return (
