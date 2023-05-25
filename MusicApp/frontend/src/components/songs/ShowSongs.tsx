@@ -144,7 +144,7 @@ export const ShowSongs = () => {
 									<TableCell align="right">{song.year_of_release}</TableCell>
                                      <TableCell component="th" scope="row">
                                     <Link to={`/profile/${song.added_by_id}`}>
-                                        {song.year_of_release}
+                                        {song.genre}
                                     </Link>
                                     </TableCell>
 									<TableCell align="right">
