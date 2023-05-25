@@ -44,12 +44,14 @@ export const RegistrationForm = () => {
         setCode(response.data['activation_code']);
     }
     catch (error: any) {
-        toast.error((error as { message: string }).message);
         console.log(error);
         const errors = error.response.data.user;
-        for (const key in errors) {
-            toast.error(`${key}: ${errors[key]}`);
-        }
+        if(errors)
+            {for (const key in errors) {
+                toast.error(`${key}: ${errors[key]}`);}
+            }
+        else
+            toast.error((error as { message: string }).message);
     }
   };
 
