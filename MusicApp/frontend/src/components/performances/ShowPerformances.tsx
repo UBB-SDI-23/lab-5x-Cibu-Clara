@@ -108,7 +108,7 @@ export const ShowPerformances = () => {
 								<TableCell align="right">Song name</TableCell>
 								<TableCell align="right">Number of views</TableCell>
 								<TableCell align="right">Duration</TableCell>
-                                <TableCell align="center" style={{color:"#2471A3", fontWeight: 'bold'}}>Added by</TableCell>
+                                <TableCell align="center">Added by</TableCell>
 								<TableCell align="center">Operations</TableCell>
 							</TableRow>
 						</TableHead>

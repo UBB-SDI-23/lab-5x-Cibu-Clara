@@ -37,9 +37,9 @@ if __name__ == '__main__':
 
                 file.write(sql + "\n")
 
-                for i in range(0, 100, 1):
+                for i in range(0, 10000, 1000):
                         users = []
-                        for j in range(i, i+1):
+                        for j in range(i, i+1000):
                                 if j % 100 == 0:
                                         print(f'{j} done')
                                 first_name = replace_quotes(fake.first_name())
