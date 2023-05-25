@@ -124,7 +124,7 @@ export const ShowSongs = () => {
 								<TableCell align="right">Composer</TableCell>
 								<TableCell align="right">Genre</TableCell>
 								<TableCell align="right">Year of release</TableCell>
-                                <TableCell align="center" style={{color:"#2471A3", fontWeight: 'bold'}}>Added by</TableCell>
+                                <TableCell align="center">Added by</TableCell>
 								<TableCell align="center">Operations</TableCell>
 							</TableRow>
 						</TableHead>

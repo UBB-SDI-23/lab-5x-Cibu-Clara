@@ -71,3 +71,4 @@ class UserProfile(models.Model):
     activation_code = models.CharField(max_length=36)
     activation_expiry_date = models.DateTimeField()
     active = models.BooleanField()
+
