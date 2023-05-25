@@ -37,6 +37,15 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    def validate_username(self, value):
+        existing_usernames = User.objects.filter(username=value)
+
+        if self.instance:
+            existing_usernames = existing_usernames.exclude(pk=self.instance.pk)
+        if existing_usernames.exists():
+            raise serializers.ValidationError("This username is already in use!")
+        return value
+
     def validate_password(self, value):
         if not any(char.isdigit() for char in value):
             raise serializers.ValidationError("Password must contain at least one digit!")
@@ -54,12 +63,6 @@ class UserSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 
-    def validate_date_of_birth(self, value):
-        pattern = r'^\d{4}-\d{2}-\d{2}$'
-        if not re.match(pattern, value):
-            raise serializers.ValidationError("Invalid birth date format! Expected format: YYYY-MM-DD")
-        return value
-
     class Meta:
         model = UserProfile
         fields = ["user", "first_name", "last_name", "date_of_birth", "location", "bio", "activation_code",
@@ -68,8 +71,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     def create(self, validated_data: OrderedDict[str, Any]) -> UserProfile:
         user_data = validated_data.pop("user")
         user_data['is_active'] = False
-        user_serializer = self.fields["user"]
-        user = user_serializer.create(user_data)  # Use serializer's create method to trigger field validation
+        user = User.objects.create_user(**user_data)
         user_profile = UserProfile.objects.create(user=user, **validated_data)
         return user_profile
 

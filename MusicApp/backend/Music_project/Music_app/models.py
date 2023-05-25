@@ -71,7 +71,7 @@ class PerformsOn(models.Model):
 class UserProfile(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    date_of_birth = models.DateField()
+    date_of_birth = models.CharField(max_length=50)
     location = models.CharField(max_length=100)
     bio = models.CharField(max_length=600)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile", to_field="username")
