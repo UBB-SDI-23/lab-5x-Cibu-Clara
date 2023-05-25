@@ -72,9 +72,9 @@ export const AddAlbum = () => {
 			const response = await axios.post(`${BACKEND_API_URL}/albums/`, album);
 			if (response.status < 200 || response.status >= 300) {
 				throw new Error("An error occurred while adding the item!");
-			  } else {
+			   } else {
 				navigate("/albums");
-			  }
+			   }
 		} catch (error) {
 			toast.error((error as { message: string }).message);
 			console.log(error);

@@ -37,6 +37,9 @@ export const RegistrationForm = () => {
             bio: formData.bio
         }
         const response = await axios.post(`${BACKEND_API_URL}/register/`, data);
+        if (response.status < 200 || response.status >= 300) {
+				throw new Error("An error occurred while adding the item!");
+		}
         setCode(response.data['activation_code']);
 
     }
