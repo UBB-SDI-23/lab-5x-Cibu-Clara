@@ -75,7 +75,7 @@ class ArtistSerializer(DynamicFieldsModelSerializer):
     country = serializers.CharField(max_length=100)
     email = serializers.EmailField(max_length=100)
     nr_albums = serializers.IntegerField(read_only=True)
-    added_by = UserProfileSerializer(read_only=True)
+    added_by = UserSerializer(read_only=True)
     songs = Song()
     added_by_id = serializers.IntegerField(write_only=True)
 
@@ -102,7 +102,7 @@ class SongSerializer(DynamicFieldsModelSerializer):
     genre = serializers.CharField(max_length=100)
     year_of_release = serializers.IntegerField()
     artists = ArtistSerializer(many=True, read_only=True)
-    added_by = UserProfileSerializer(read_only=True)
+    added_by = UserSerializer(read_only=True)
     added_by_id = serializers.IntegerField(write_only=True)
 
     def validate_year_of_release(self, value):
@@ -127,7 +127,7 @@ class AlbumSerializer(DynamicFieldsModelSerializer):
     year_of_release = serializers.IntegerField()
     main_artist = ArtistSerializer(read_only=True)
     main_artist_id = serializers.IntegerField(write_only=True)
-    added_by = UserProfileSerializer(read_only=True)
+    added_by = UserSerializer(read_only=True)
     added_by_id = serializers.IntegerField(write_only=True)
 
     def validate_nr_of_tracks(self, value):
@@ -183,7 +183,7 @@ class PerformsOnSerializer(DynamicFieldsModelSerializer):
     duration = serializers.CharField(max_length=10)
     song_id = serializers.IntegerField(write_only=True)
     artist_id = serializers.IntegerField(write_only=True)
-    added_by = UserProfileSerializer(read_only=True)
+    added_by = UserSerializer(read_only=True)
     added_by_id = serializers.IntegerField(write_only=True)
 
     def validate_duration(self, value):
