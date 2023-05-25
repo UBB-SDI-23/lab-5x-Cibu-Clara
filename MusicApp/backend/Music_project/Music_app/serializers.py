@@ -68,7 +68,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
     def create(self, validated_data: OrderedDict[str, Any]) -> UserProfile:
         user_data = validated_data.pop("user")
         user_data['is_active'] = False
-        user = User.objects.create_user(**user_data)
+        user_serializer = self.fields["user"]
+        user = user_serializer.create(user_data)  # Use serializer's create method to trigger field validation
         user_profile = UserProfile.objects.create(user=user, **validated_data)
         return user_profile
 
