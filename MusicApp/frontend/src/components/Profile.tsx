@@ -57,7 +57,7 @@ export const UserProfile = () => {
 				/>
 
 				<TextField
-					id="FirstName"
+					id="first_name"
 					label="First Name"
 					variant="outlined"
 					fullWidth
@@ -69,7 +69,7 @@ export const UserProfile = () => {
 				/>
 
 				<TextField
-					id="lastName"
+					id="last_name"
 					label="Last Name"
 					variant="outlined"
 					fullWidth
@@ -117,8 +117,8 @@ export const UserProfile = () => {
 				/>
 
                 <TextField
-					id="swimmers"
-					label="Swimmers Count"
+					id="songs_count"
+					label="Songs Count"
 					variant="outlined"
 					fullWidth
 					sx={{ mb: 2, color: "whitesmoke !important" }}
@@ -130,8 +130,8 @@ export const UserProfile = () => {
 				/>
 
                 <TextField
-					id="teams"
-					label="Teams Count"
+					id="artists_count"
+					label="Artists Count"
 					variant="outlined"
 					fullWidth
 					sx={{ mb: 2, color: "whitesmoke !important" }}
@@ -143,8 +143,8 @@ export const UserProfile = () => {
 				/>
 
                 <TextField
-					id="coaches"
-					label="Coaches Count"
+					id="albums_count"
+					label="Albums Count"
 					variant="outlined"
 					fullWidth
 					sx={{ mb: 2, color: "whitesmoke !important" }}
@@ -156,8 +156,8 @@ export const UserProfile = () => {
 				/>
 
                 <TextField
-					id="teams"
-					label="Fans Count"
+					id="performances_count"
+					label="Performances Count"
 					variant="outlined"
 					fullWidth
 					sx={{ mb: 2, color: "whitesmoke !important" }}
