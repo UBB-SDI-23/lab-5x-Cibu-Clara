@@ -23,10 +23,8 @@ export const RegistrationForm = () => {
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    console.log("1")
 
     try {
-        console.log("1")
         const data = {
             user: {
                 username: formData.username,
@@ -38,7 +36,11 @@ export const RegistrationForm = () => {
             location: formData.location,
             bio: formData.bio
         }
+
+        console.log("1")
         const response = await axios.post(`${BACKEND_API_URL}/register/`, data);
+
+        console.log("1")
         setCode(response.data['activation_code']);
 
     console.log("1")
