@@ -20,9 +20,9 @@ if __name__ == '__main__':
 		    ALTER TABLE "Music_app_performson" DROP CONSTRAINT "Music_app_performson_artist_id_4d36423e_fk_Music_app_artist_id";\n """
                 file.write(sql + "\n") 
 
-                for i in range(0, 1000, 1):
+                for i in range(0, 1000000, 1000):
                         artists = []
-                        for j in range(i, i+1):
+                        for j in range(i, i+1000):
                                 artist_name = replace_quotes(fake.name())
                                 real_name = replace_quotes(fake.name())
                                 country = replace_quotes(fake.country())
@@ -38,13 +38,13 @@ if __name__ == '__main__':
                 print("Artists added")
                 file.write("SELECT 'artists done!' as msg;\n")
 
-                for i in range(0, 1000, 1):
+                for i in range(0, 1000000, 1000):
                         albums = []
                         for j in range(i, i+1):
                                 album_title = replace_quotes(fake.text(max_nb_chars=25))
                                 nr_of_tracks = fake.random_int(min=1, max=50)
                                 label = replace_quotes(fake.text(max_nb_chars=10))
-                                main_artist_id = fake.random_int(min=1, max=1000)
+                                main_artist_id = fake.random_int(min=1, max=1000000)
                                 year_of_release = fake.random_int(min=1900, max=2023)
                                 added_by_id = fake.random_int(min=1, max=10000)
                                 albums.append(f"('{album_title}', '{nr_of_tracks}', '{label}', '{year_of_release}', '{main_artist_id}', '{added_by_id}')")
@@ -54,9 +54,9 @@ if __name__ == '__main__':
                 print("Albums added")
                 file.write("SELECT 'albums done!' as msg;\n")
 
-                for i in range(0, 1000, 1):
+                for i in range(0, 1000000, 1000):
                         songs = []
-                        for j in range(i, i+1):
+                        for j in range(i, i+1000):
                                 song_name = replace_quotes(fake.text(max_nb_chars=25))
                                 composer = replace_quotes(fake.name())
                                 genre = fake.random_element(elements=("pop", "electronic", "dance", "dnb", "soul", "reggae", "classical", "hip hop", "blues", "rock", "jazz", "minimal", "house", "rap"))
@@ -70,13 +70,13 @@ if __name__ == '__main__':
                 file.write("SELECT 'songs done!' as msg;\n")
 
                 nr = 10000000
-                for i in range(1000):
-                        if i % 100 == 0:
-                                print(f'{i*100} done')
-                        artist_id = fake.random_int(min=1, max=1000)
+                for i in range(10000):
+                        if i % 1000 == 0:
+                                print(f'{i*1000} done')
+                        artist_id = fake.random_int(min=1, max=1000000)
                         performances = []
-                        for j in range(10):
-                                song_id = fake.random_int(min=1, max=1000)
+                        for j in range(1000):
+                                song_id = fake.random_int(min=1, max=1000000)
                                 nr_of_views = fake.random_int(min=0, max=70000000)
                                 minutes = fake.random_int(min=0, max=10)
                                 seconds = fake.random_int(min=0, max=59)
